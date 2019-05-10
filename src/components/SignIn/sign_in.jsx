@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
-import { withFirebase } from "../Firebase/firebase";
+import Firebase, { withFirebase } from "../Firebase/firebase";
 import * as ROUTES from "../../constants/routes";
 
 function SignIn() {
@@ -27,7 +27,7 @@ class SignInFormBase extends Component {
 
   static get propTypes() {
     return {
-      firebase: PropTypes.firebase.isRequired,
+      firebase: PropTypes.instanceOf(Firebase).isRequired,
       history: PropTypes.arrayOf(PropTypes.string).isRequired
     };
   }
