@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { withFirebase } from "../Firebase/firebase";
 import * as ROUTES from "../../constants/routes";
+import PropTypes from 'prop-types';
 
 function SignIn() {
   return (
@@ -18,15 +19,25 @@ const INITIAL_STATE = {
   error: null
 };
 
+
 class SignInFormBase extends Component {
+
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
   }
+  static get propTypes() {
+      return {
+        firebase: PropTypes.any,
+        history: PropTypes.any
+      };
+  };
 
   onSubmit = event => {
+    
     const { email, password } = this.state;
-    const { firebase, history} = this.props;
+    const { firebase, history } = this.props;
+    
     firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
