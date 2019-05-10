@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { withFirebase } from "../Firebase/firebase";
 import * as ROUTES from "../../constants/routes";
 
-
 function SignIn() {
   return (
     <div>
@@ -29,7 +28,7 @@ class SignInFormBase extends Component {
   static get propTypes() {
     return {
       firebase: PropTypes.firebase.isRequired,
-      history: PropTypes.array.isRequired
+      history: PropTypes.arrayOf(PropTypes.string).isRequired
     };
   }
 
