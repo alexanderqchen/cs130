@@ -37,10 +37,9 @@ class SignInFormBase extends Component {
     const { email, password } = this.state;
     const { firebase, history } = this.props;
 
-    firebase.setPersistenceLevel(PERSLEVEL.LOCAL)
-      .then(() => 
-        firebase.doSignInWithEmailAndPassword(email, password)
-      )
+    firebase
+      .setPersistenceLevel(PERSLEVEL.LOCAL)
+      .then(() => firebase.doSignInWithEmailAndPassword(email, password))
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         history.push(ROUTES.ADMIN_PANEL);

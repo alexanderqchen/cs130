@@ -4,40 +4,40 @@ import SignOutButton from "../SignOut/sign_out";
 import * as ROUTES from "../../constants/routes";
 import AuthUserContext from "../Session/session";
 
-const Navigation = () => ( 
-  <div> 
+const Navigation = () => (
+  <div>
     <AuthUserContext.Consumer>
-      {authUser => authUser ? <NavigationAuth /> : <NavigationNoAuth />}
+      {authUser => (authUser ? <NavigationAuth /> : <NavigationNoAuth />)}
     </AuthUserContext.Consumer>
   </div>
-)
+);
 
 const NavigationAuth = () => (
   <div>
-      <ul>
-        <li>
-          <Link to={ROUTES.ADMIN_PANEL}>Admin Panel</Link>
-        </li>
-        <button>
-          <SignOutButton/>
-        </button>
-      </ul>
+    <ul>
+      <li>
+        <Link to={ROUTES.ADMIN_PANEL}>Admin Panel</Link>
+      </li>
+      <button>
+        <SignOutButton />
+      </button>
+    </ul>
   </div>
-)
+);
 
 const NavigationNoAuth = () => (
   <div>
-      <ul>
-        <li>
-          <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-        </li>
-        <li>
-          <Link to={ROUTES.LANDING}>Landing</Link>
-        </li>
-        <li>
-          <Link to={ROUTES.PASSWORD_FORGET}>Password Forget</Link>
-        </li>
-      </ul>
+    <ul>
+      <li>
+        <Link to={ROUTES.SIGN_IN}>Sign In</Link>
+      </li>
+      <li>
+        <Link to={ROUTES.LANDING}>Landing</Link>
+      </li>
+      <li>
+        <Link to={ROUTES.PASSWORD_FORGET}>Password Forget</Link>
+      </li>
+    </ul>
   </div>
-)
+);
 export default Navigation;
