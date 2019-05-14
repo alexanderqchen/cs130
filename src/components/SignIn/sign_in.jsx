@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Firebase, { withFirebase } from "../Firebase/firebase";
 import * as ROUTES from "../../constants/routes";
+import * as PERSLEVEL from "../../constants/persistent_level";
 
 function SignIn() {
   return (
@@ -36,8 +37,10 @@ class SignInFormBase extends Component {
     const { email, password } = this.state;
     const { firebase, history } = this.props;
 
-    firebase
-      .doSignInWithEmailAndPassword(email, password)
+    firebase.setPersistenceLevel(PERSLEVEL.LOCAL)
+      .then(() => 
+        firebase.doSignInWithEmailAndPassword(email, password)
+      )
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         history.push(ROUTES.ADMIN_PANEL);

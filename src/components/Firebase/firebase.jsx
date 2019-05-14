@@ -17,6 +17,9 @@ class Firebase {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
   }
+  setPersistenceLevel = (level) => {
+    return this.auth.setPersistence(level);
+  }
 
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
