@@ -18,7 +18,7 @@ const NavigationAuth = () => (
       <li>
         <Link to={ROUTES.ADMIN_PANEL}>Admin Panel</Link>
       </li>
-      <button>
+      <button type="submit">
         <SignOutButton />
       </button>
     </ul>

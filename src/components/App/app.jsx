@@ -24,6 +24,15 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    const { firebase } = this.props;
+    this.listener = firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? this.setState({ authUser: authUser })
+        : this.setState({ authUser: null });
+    });
+  }
+
   componentWillUnmount() {
     this.listener();
   }
@@ -46,15 +55,6 @@ class App extends Component {
         </Router>
       </AuthUserContext.Provider>
     );
-  }
-
-  componentDidMount() {
-    const { firebase } = this.props;
-    this.listener = firebase.auth.onAuthStateChanged(authUser => {
-      authUser
-        ? this.setState({ authUser: authUser })
-        : this.setState({ authUser: null });
-    });
   }
 }
 
