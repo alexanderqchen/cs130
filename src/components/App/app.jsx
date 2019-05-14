@@ -26,20 +26,18 @@ class App extends Component {
 
   componentDidMount() {
     const { firebase } = this.props;
-    this.listener = firebase.auth.onAuthStateChanged(authUser => {
+    firebase.auth.onAuthStateChanged(authUser => {
       authUser
-        ? this.setState({ authUser: authUser })
+        ? this.setState({ authUser })
         : this.setState({ authUser: null });
-    });
+    }
+    );
   }
-
-  componentWillUnmount() {
-    this.listener();
-  }
-
+  
   render() {
+    const { authUser } = this.state;
     return (
-      <AuthUserContext.Provider value={this.state.authUser}>
+      <AuthUserContext.Provider value={authUser}>
         <Router>
           <div>
             <Navigation />
