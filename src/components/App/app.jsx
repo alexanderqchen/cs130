@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route} from "react-router-dom";
 import PropTypes from "prop-types";
 import Navigation from "../Navigation/navigation";
 import Firebase, { withFirebase } from "../Firebase/firebase";
 import LandingPage from "../Landing/landing";
-import SignInPage from "../SignIn/sign_in";
-import PasswordForgetPage from "../PasswordForget/pw_forget";
+import SignInPage from "../SignIn/signIn";
+import PasswordForgetPage from "../PasswordForget/pwForget";
 import AdminPanelPage from "../Admin/admin";
 import AuthUserContext from "../Session/session";
 import * as ROUTES from "../../constants/routes";
@@ -27,12 +27,9 @@ class App extends Component {
   componentDidMount() {
     const { firebase } = this.props;
     this.listener = firebase.auth.onAuthStateChanged(authUser => {
-      if (authUser)
-        this.setState({ authUser })
-      else
-        this.setState({ authUser: null });
-    }
-    );
+      if (authUser) this.setState({ authUser });
+      else this.setState({ authUser: null });
+    });
   }
 
   componentWillUnmount() {
@@ -41,6 +38,7 @@ class App extends Component {
 
   render() {
     const { authUser } = this.state;
+    console.log("app component " + authUser);
     return (
       <AuthUserContext.Provider value={authUser}>
         <Router>

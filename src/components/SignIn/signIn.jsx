@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Firebase, { withFirebase } from "../Firebase/firebase";
 import * as ROUTES from "../../constants/routes";
-import * as PERSLEVEL from "../../constants/persistent_level";
+import * as PERSLEVEL from "../../constants/persistentLevel";
 
 function SignIn() {
   return (
@@ -55,6 +55,7 @@ class SignInFormBase extends Component {
   };
 
   render() {
+  
     const { email, password, error } = this.state;
     const isInvalid = password === "" || email === "";
 

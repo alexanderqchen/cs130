@@ -1,7 +1,8 @@
 import React from "react";
+import withAuthorization from "../Session/withAuthorization";
 
 function Admin() {
   return <div>Admin Page</div>;
 }
 
-export default Admin;
+export default withAuthorization(Admin);
