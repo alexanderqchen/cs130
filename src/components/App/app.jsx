@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import PropTypes from "prop-types";
 import Navigation from "../Navigation/navigation";
 import Firebase, { withFirebase } from "../Firebase/firebase";
@@ -38,7 +38,6 @@ class App extends Component {
 
   render() {
     const { authUser } = this.state;
-    console.log("app component " + authUser);
     return (
       <AuthUserContext.Provider value={authUser}>
         <Router>
