@@ -5,24 +5,24 @@ import Firebase, { withFirebase } from "../Firebase/firebase";
 import * as ROUTES from "../../constants/routes";
 import AuthUserContext from "./session";
 
-
 const withAuthorization = Component => {
   class WithAuthorization extends React.Component {
     static get propTypes() {
-        return {
-          firebase: PropTypes.instanceOf(Firebase).isRequired,
-          history: PropTypes.arrayOf(PropTypes.string).isRequired
-        };
+      return {
+        firebase: PropTypes.instanceOf(Firebase).isRequired,
+        history: PropTypes.arrayOf(PropTypes.string).isRequired
+      };
     }
 
     componentDidMount() {
-        const {firebase, history} = this.props;
-        this.listener = firebase.auth.onAuthStateChanged(authUser => {
-            if (!authUser) {
-                history.push(ROUTES.SIGN_IN);
-            }
-        });
+      const { firebase, history } = this.props;
+      this.listener = firebase.auth.onAuthStateChanged(authUser => {
+        if (!authUser) {
+          history.push(ROUTES.SIGN_IN);
+        }
+      });
     }
+    
     componentWillUnmount() {
       this.listener();
     }
