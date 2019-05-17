@@ -22,7 +22,7 @@ const withAuthorization = Component => {
         }
       });
     }
-    
+
     componentWillUnmount() {
       this.listener();
     }
