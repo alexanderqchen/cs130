@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Firebase, { withFirebase } from "../Firebase/firebase";
 import * as ROUTES from "../../constants/routes";
 import * as PERSLEVEL from "../../constants/persistentLevel";
+import withAuthorization from "../Session/withAuthorization"; 
 
 function SignIn() {
   return (
@@ -84,5 +85,5 @@ class SignInFormBase extends Component {
 }
 
 const SignInForm = withRouter(withFirebase(SignInFormBase));
-export { SignInForm };
-export default SignIn;
+
+export default withAuthorization(SignIn)(true);

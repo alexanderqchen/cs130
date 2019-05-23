@@ -5,4 +5,4 @@ function Admin() {
   return <div>Admin Page</div>;
 }
 
-export default withAuthorization(Admin);
+export default withAuthorization(Admin)(false);

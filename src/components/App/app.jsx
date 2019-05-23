@@ -19,17 +19,6 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      authUser: null
-    };
-  }
-
-  componentDidMount() {
-    const { firebase } = this.props;
-    this.listener = firebase.auth.onAuthStateChanged(authUser => {
-      if (authUser) this.setState({ authUser });
-      else this.setState({ authUser: null });
-    });
   }
 
   componentWillUnmount() {
@@ -37,9 +26,8 @@ class App extends Component {
   }
 
   render() {
-    const { authUser } = this.state;
+
     return (
-      <AuthUserContext.Provider value={authUser}>
         <Router>
           <div>
             <Navigation />
@@ -53,7 +41,6 @@ class App extends Component {
             <Route path={ROUTES.ADMIN_PANEL} component={AdminPanelPage} />
           </div>
         </Router>
-      </AuthUserContext.Provider>
     );
   }
 }
