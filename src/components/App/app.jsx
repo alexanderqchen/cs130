@@ -7,13 +7,7 @@ import PasswordForgetPage from "../PasswordForget/pwForget";
 import AdminPanelPage from "../Admin/admin";
 import * as ROUTES from "../../constants/routes";
 
-class App extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+function App () {
     return (
       <Router>
         <div>
@@ -26,7 +20,6 @@ class App extends Component {
         </div>
       </Router>
     );
-  }
 }
 
 export default App;
