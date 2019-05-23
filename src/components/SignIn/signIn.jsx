@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Firebase, { withFirebase } from "../Firebase/firebase";
 import * as ROUTES from "../../constants/routes";
 import * as PERSLEVEL from "../../constants/persistentLevel";
-import withAuthorization from "../Session/withAuthorization"; 
+import withAuthorization from "../Session/withAuthorization";
 
 function SignIn() {
   return (
