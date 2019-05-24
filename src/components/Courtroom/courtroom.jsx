@@ -18,80 +18,68 @@ class Courtroom extends Component {
   }
 
   render() {
-      const { classes } = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.root}>
         <TermCard
           term="Hello"
           definition="definition here"
           edit
-          delete={false}
+          del={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
           edit
-          delete={false}
+          del={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
           edit
-          delete={false}
+          del={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
           edit
-          delete={false}
+          del={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
           edit
-          delete={false}
+          del={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
           edit
-          delete={false}
+          del={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
           edit
-          delete={false}
+          del={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
           edit
-          delete={false}
+          del={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
           edit
-          delete={false}
+          del={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
           edit
-          delete={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          delete={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          delete={false}
+          del={false}
         />
       </div>
     );

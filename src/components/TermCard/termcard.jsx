@@ -33,32 +33,28 @@ class TermCard extends Component {
       definition: PropTypes.string.isRequired,
       classes: PropTypes.instanceOf(Map).isRequired,
       edit: PropTypes.bool,
-      delete: PropTypes.bool
+      del: PropTypes.bool
     };
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, term, definition, edit, del } = this.props;
     return (
       <div className={classes.root}>
         <Grid container spacing={1}>
           <Grid item xs={3}>
-            <p className={classes.term}>{this.props.term}</p>
+            <p className={classes.term}>{term}</p>
           </Grid>
           <Grid item xs={6}>
-            {this.props.definition}
+            {definition}
           </Grid>
           <Grid item xs={3} className={classes.buttons}>
-            {this.props.edit ? (
-              <Fab
-                color="primary"
-                aria-label="Edit"
-                className={classes.button}
-              >
+            {edit ? (
+              <Fab color="primary" aria-label="Edit" className={classes.button}>
                 <EditIcon />
               </Fab>
             ) : null}
-            {this.props.delete ? (
+            {del ? (
               <Fab
                 color="primary"
                 aria-label="Delete"
