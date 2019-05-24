@@ -17,70 +17,24 @@ class Courtroom extends Component {
     };
   }
 
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          del={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          del={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          del={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          del={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          del={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          del={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          del={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          del={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          del={false}
-        />
-        <TermCard
-          term="Hello"
-          definition="definition here"
-          edit
-          del={false}
-        />
+        <TermCard term="Hello" definition="definition here" edit del={false} />
+        <TermCard term="Hello" definition="definition here" edit del={false} />
+        <TermCard term="Hello" definition="definition here" edit del={false} />
+        <TermCard term="Hello" definition="definition here" edit del={false} />
+        <TermCard term="Hello" definition="definition here" edit del={false} />
+        <TermCard term="Hello" definition="definition here" edit del={false} />
+        <TermCard term="Hello" definition="definition here" edit del={false} />
+        <TermCard term="Hello" definition="definition here" edit del={false} />
+        <TermCard term="Hello" definition="definition here" edit del={false} />
+        <TermCard term="Hello" definition="definition here" edit del={false} />
       </div>
     );
   }

@@ -32,9 +32,13 @@ class TermCard extends Component {
       term: PropTypes.string.isRequired,
       definition: PropTypes.string.isRequired,
       classes: PropTypes.instanceOf(Map).isRequired,
-      edit: PropTypes.bool,
-      del: PropTypes.bool
+      edit: PropTypes.bool.isRequired,
+      del: PropTypes.bool.isRequired,
     };
+  }
+
+  constructor(props) {
+    super(props);
   }
 
   render() {
