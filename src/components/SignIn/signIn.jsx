@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Container from "@material-ui/core/Container";
-import Firebase, { withFirebase } from "../Firebase/firebase";
-import * as ROUTES from "../../constants/routes";
-import * as PERSLEVEL from "../../constants/persistentLevel";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,7 +11,9 @@ import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
+import Firebase, { withFirebase } from "../Firebase/firebase";
+import * as ROUTES from "../../constants/routes";
+import * as PERSLEVEL from "../../constants/persistentLevel";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -72,7 +71,7 @@ class SignInFormBase extends Component {
         history.push(ROUTES.ADMIN_PANEL);
       })
       .catch(error => {
-        this.setState({ error});
+        this.setState({ error });
       });
     event.preventDefault();
   };

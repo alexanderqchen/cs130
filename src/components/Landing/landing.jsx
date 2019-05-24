@@ -3,9 +3,10 @@ import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
 import SignInForm from "../SignIn/signIn";
 import withAuthorization from "../Session/withAuthorization";
-import PropTypes from "prop-types";
+
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -38,7 +39,7 @@ class Landing extends Component {
 
   render() {
     const { classes } = this.props;
-    const {open} = this.state;
+    const { open } = this.state;
     return (
       <div>
         <Grid container justify="space-between" spacing={24}>
