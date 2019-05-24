@@ -38,21 +38,22 @@ class TermCard extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className={this.props.classes.root}>
+      <div className={classes.root}>
         <Grid container spacing={1}>
           <Grid item xs={3}>
-            <p className={this.props.classes.term}>{this.props.term}</p>
+            <p className={classes.term}>{this.props.term}</p>
           </Grid>
           <Grid item xs={6}>
             {this.props.definition}
           </Grid>
-          <Grid item xs={3} className={this.props.classes.buttons}>
+          <Grid item xs={3} className={classes.buttons}>
             {this.props.edit ? (
               <Fab
                 color="primary"
                 aria-label="Edit"
-                className={this.props.classes.button}
+                className={classes.button}
               >
                 <EditIcon />
               </Fab>
@@ -61,7 +62,7 @@ class TermCard extends Component {
               <Fab
                 color="primary"
                 aria-label="Delete"
-                className={this.props.classes.button}
+                className={classes.button}
               >
                 <DeleteIcon />
               </Fab>
