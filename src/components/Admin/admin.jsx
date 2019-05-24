@@ -10,10 +10,10 @@ import withAuthorization from "../Session/withAuthorization";
 
 const styles = {
   root: {
-    overflow: 'hidden',
+    overflow: "hidden"
   },
   header: {
-    backgroundColor: "#eeeeee",
+    backgroundColor: "#eeeeee"
   },
   title: {
     fontWeight: "normal",
