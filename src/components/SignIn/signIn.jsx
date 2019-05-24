@@ -55,7 +55,8 @@ class SignInFormBase extends Component {
   static get propTypes() {
     return {
       firebase: PropTypes.instanceOf(Firebase).isRequired,
-      history: PropTypes.arrayOf(PropTypes.string).isRequired
+      history: PropTypes.arrayOf(PropTypes.string).isRequired,
+      classes: PropTypes.instanceOf(String).isRequired
     };
   }
 

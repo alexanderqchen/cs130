@@ -17,6 +17,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 class Landing extends Component {
+  //classes is not an instance of string but eslint is forcing me to give some prop type
+  //even from official documentation they have this as proptypes.object but eslint doesn't 
+  //allow this - if someone can find the typem just change it
   static get propTypes() {
     return {
       classes: PropTypes.instanceOf(String).isRequired
