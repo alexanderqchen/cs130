@@ -1,38 +1,41 @@
 import React, { Component } from "react";
-import { withStyles } from '@material-ui/styles';
+import { withStyles } from "@material-ui/styles";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import "typeface-roboto";
 import PropTypes from "prop-types";
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import 'typeface-roboto';
-import Courtroom from '../Courtroom/courtroom';
+import Courtroom from "../Courtroom/courtroom";
 import withAuthorization from "../Session/withAuthorization";
 
 const styles = {
-  root: {
-
-  },
+  root: {},
   header: {
-    backgroundColor: '#eeeeee',
+    backgroundColor: "#eeeeee"
   },
   title: {
-    fontWeight: 'normal',
+    fontWeight: "normal",
     paddingLeft: 50,
-    paddingRight: 50,
+    paddingRight: 50
   }
 };
 
 class Admin extends Component {
+  static get propTypes() {
+    return {
+      classes: PropTypes.object,
+    };
+  }
 
   constructor(props) {
     super(props);
     this.state = {
-      value: 0,
+      value: 0
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event, value) {
-    this.setState({ value: value });
+    this.setState({ value });
   }
 
   render() {
@@ -57,7 +60,6 @@ class Admin extends Component {
       </div>
     );
   }
-  
 }
 
 export default withStyles(styles)(withAuthorization(Admin));
