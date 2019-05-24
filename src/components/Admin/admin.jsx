@@ -22,7 +22,7 @@ const styles = {
 class Admin extends Component {
   static get propTypes() {
     return {
-      classes: PropTypes.instanceOf(Map),
+      classes: PropTypes.instanceOf(Map).isRequired,
     };
   }
 
@@ -39,10 +39,11 @@ class Admin extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div className={this.props.classes.root}>
-        <div className={this.props.classes.header}>
-          <h1 className={this.props.classes.title}>Admin Dashboard</h1>
+      <div className={classes.root}>
+        <div className={classes.header}>
+          <h1 className={classes.title}>Admin Dashboard</h1>
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
