@@ -31,6 +31,7 @@ class TermCard extends Component {
     return {
       term: PropTypes.string.isRequired,
       definition: PropTypes.string.isRequired,
+      classes: PropTypes.instanceOf(Map).isRequired,
       edit: PropTypes.bool,
       delete: PropTypes.bool
     };

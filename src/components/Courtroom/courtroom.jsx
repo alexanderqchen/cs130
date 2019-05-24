@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/styles";
 import TermCard from "../TermCard/termcard";
+import PropTypes from "prop-types";
 import "typeface-roboto";
 
 const styles = {
@@ -10,6 +11,11 @@ const styles = {
 };
 
 class Courtroom extends Component {
+    static get propTypes() {
+        return {
+          classes: PropTypes.instanceOf(Map).isRequired,
+        };
+    }
   render() {
     return (
       <div className={this.props.classes.root}>
