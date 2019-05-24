@@ -16,49 +16,73 @@ class Courtroom extends Component {
         <TermCard
           term="Hello"
           definition="definition here"
-          edit={true}
+          edit
           delete={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
-          edit={true}
+          edit
           delete={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
-          edit={true}
+          edit
           delete={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
-          edit={true}
+          edit
           delete={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
-          edit={true}
+          edit
           delete={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
-          edit={true}
+          edit
           delete={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
-          edit={true}
+          edit
           delete={false}
         />
         <TermCard
           term="Hello"
           definition="definition here"
-          edit={true}
+          edit
+          delete={false}
+        />
+        <TermCard
+          term="Hello"
+          definition="definition here"
+          edit
+          delete={false}
+        />
+        <TermCard
+          term="Hello"
+          definition="definition here"
+          edit
+          delete={false}
+        />
+        <TermCard
+          term="Hello"
+          definition="definition here"
+          edit
+          delete={false}
+        />
+        <TermCard
+          term="Hello"
+          definition="definition here"
+          edit
           delete={false}
         />
       </div>
