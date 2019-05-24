@@ -5,12 +5,15 @@ import Tabs from "@material-ui/core/Tabs";
 import "typeface-roboto";
 import PropTypes from "prop-types";
 import Courtroom from "../Courtroom/courtroom";
+import Glossary from "../Glossary/glossary";
 import withAuthorization from "../Session/withAuthorization";
 
 const styles = {
-  root: {},
+  root: {
+    overflow: 'hidden',
+  },
   header: {
-    backgroundColor: "#eeeeee"
+    backgroundColor: "#eeeeee",
   },
   title: {
     fontWeight: "normal",
@@ -57,7 +60,7 @@ class Admin extends Component {
           </Tabs>
         </div>
         {value === 0 && <Courtroom />}
-        {value === 1 && <p>Page Two</p>}
+        {value === 1 && <Glossary />}
         {value === 2 && <p>Page Three</p>}
       </div>
     );

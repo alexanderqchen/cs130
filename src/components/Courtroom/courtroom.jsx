@@ -6,7 +6,7 @@ import "typeface-roboto";
 
 const styles = {
   root: {
-    overflowY: "scroll"
+    overflow: "scroll"
   }
 };
 
