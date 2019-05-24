@@ -37,6 +37,7 @@ const NavigationNoAuth = () => (
       <li>
         <Link to={ROUTES.PASSWORD_FORGET}>Password Forget</Link>
       </li>
+      <SignOutButton />
     </ul>
   </div>
 );
