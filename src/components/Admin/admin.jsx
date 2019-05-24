@@ -22,7 +22,7 @@ const styles = {
 class Admin extends Component {
   static get propTypes() {
     return {
-      classes: PropTypes.instanceOf(Map).isRequired,
+      classes: PropTypes.instanceOf(Map).isRequired
     };
   }
 
@@ -40,12 +40,13 @@ class Admin extends Component {
 
   render() {
     const { classes } = this.props;
+    const { value } = this.state;
     return (
       <div className={classes.root}>
         <div className={classes.header}>
           <h1 className={classes.title}>Admin Dashboard</h1>
           <Tabs
-            value={this.state.value}
+            value={value}
             onChange={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
@@ -55,9 +56,9 @@ class Admin extends Component {
             <Tab label="Settings" />
           </Tabs>
         </div>
-        {this.state.value === 0 && <Courtroom />}
-        {this.state.value === 1 && <p>Page Two</p>}
-        {this.state.value === 2 && <p>Page Three</p>}
+        {value === 0 && <Courtroom />}
+        {value === 1 && <p>Page Two</p>}
+        {value === 2 && <p>Page Three</p>}
       </div>
     );
   }
