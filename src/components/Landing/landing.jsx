@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import SignInForm from "../SignIn/signIn";
 import withAuthorization from "../Session/withAuthorization";
 
-
 const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
@@ -20,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 class Landing extends Component {
   static get propTypes() {
     return {
-      classes: PropTypes.object.isRequired
+      classes: PropTypes.instanceOf(String).isRequired
     };
   }
 
