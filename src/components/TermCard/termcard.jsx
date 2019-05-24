@@ -26,6 +26,7 @@ const styles = {
   }
 };
 
+// eslint-disable-next-line react/prefer-stateless-function
 class TermCard extends Component {
   static get propTypes() {
     return {
@@ -33,12 +34,8 @@ class TermCard extends Component {
       definition: PropTypes.string.isRequired,
       classes: PropTypes.instanceOf(Map).isRequired,
       edit: PropTypes.bool.isRequired,
-      del: PropTypes.bool.isRequired,
+      del: PropTypes.bool.isRequired
     };
-  }
-
-  constructor(props) {
-    super(props);
   }
 
   render() {

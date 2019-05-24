@@ -10,15 +10,12 @@ const styles = {
   }
 };
 
+// eslint-disable-next-line react/prefer-stateless-function
 class Courtroom extends Component {
   static get propTypes() {
     return {
       classes: PropTypes.instanceOf(Map).isRequired
     };
-  }
-
-  constructor(props) {
-    super(props);
   }
 
   render() {
