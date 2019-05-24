@@ -22,7 +22,7 @@ const styles = {
 class Admin extends Component {
   static get propTypes() {
     return {
-      classes: PropTypes.object,
+      classes: PropTypes.instanceOf(Map),
     };
   }
 
