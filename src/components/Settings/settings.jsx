@@ -33,10 +33,10 @@ const styles = {
     paddingRight: 25
   },
   cancelAdd: {
-    textTransform: 'none',
+    textTransform: "none"
   },
   confirmAdd: {
-    textTransform: 'none',
+    textTransform: "none"
   },
   deleteDialog: {
     width: "50%",
@@ -44,11 +44,11 @@ const styles = {
     paddingRight: 25
   },
   cancelDelete: {
-    textTransform: 'none',
+    textTransform: "none"
   },
   confirmDelete: {
-    textTransform: 'none',
-  },
+    textTransform: "none"
+  }
 };
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -159,10 +159,18 @@ class Settings extends Component {
             </DialogTitle>
             <TextField label="Email" margin="normal" />
             <DialogActions>
-              <Button onClick={this.handleCloseAdd} color="primary" classes={{label: classes.cancelAdd}}>
+              <Button
+                onClick={this.handleCloseAdd}
+                variant="outlined"
+                classes={{ label: classes.cancelAdd }}
+              >
                 Cancel
               </Button>
-              <Button onClick={this.handleCloseAdd} color="primary" classes={{label: classes.confirmAdd}}>
+              <Button
+                onClick={this.handleCloseAdd}
+                color="primary"
+                classes={{ label: classes.confirmAdd }}
+              >
                 Add
               </Button>
             </DialogActions>
@@ -179,10 +187,19 @@ class Settings extends Component {
             <DialogTitle onClose={this.handleCloseDelete}>Delete</DialogTitle>
             Are you sure you want to delete this user?
             <DialogActions>
-              <Button onClick={this.handleCloseDelete} color="primary" classes={{label: classes.cancelDelete}}>
+              <Button
+                onClick={this.handleCloseDelete}
+                variant="outlined"
+                classes={{ label: classes.cancelDelete }}
+              >
                 Cancel
               </Button>
-              <Button variant="contained" onClick={this.handleCloseDelete} color="secondary" classes={{label: classes.confirmDelete}}>
+              <Button
+                variant="contained"
+                onClick={this.handleCloseDelete}
+                color="secondary"
+                classes={{ label: classes.confirmDelete }}
+              >
                 Delete
               </Button>
             </DialogActions>

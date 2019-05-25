@@ -33,10 +33,10 @@ const styles = {
     paddingRight: 25
   },
   cancelEdit: {
-    textTransform: 'none',
+    textTransform: "none"
   },
   saveEdit: {
-    textTransform: 'none',
+    textTransform: "none"
   },
   deleteDialog: {
     width: "50%",
@@ -44,11 +44,11 @@ const styles = {
     paddingRight: 25
   },
   cancelDelete: {
-    textTransform: 'none',
+    textTransform: "none"
   },
   confirmDelete: {
-    textTransform: 'none',
-  },
+    textTransform: "none"
+  }
 };
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -135,6 +135,7 @@ class TermCard extends Component {
           </Grid>
         </Grid>
         <hr />
+
         {/* Dialog for Edit Button */}
         <Dialog
           classes={{ paper: classes.editDialog }}
@@ -147,14 +148,24 @@ class TermCard extends Component {
           <TextField label="Term" margin="normal" />
           <TextField label="Definition" margin="normal" />
           <DialogActions>
-            <Button onClick={this.handleCloseEdit} color="primary" classes={{label: classes.cancelEdit}}>
+            <Button
+              onClick={this.handleCloseEdit}
+              variant="outlined"
+              classes={{ label: classes.cancelEdit }}
+            >
               Cancel
             </Button>
-            <Button variant="contained" onClick={this.handleCloseEdit} color="primary" classes={{label: classes.saveEdit}}>
+            <Button
+              variant="contained"
+              onClick={this.handleCloseEdit}
+              color="primary"
+              classes={{ label: classes.saveEdit }}
+            >
               Save
             </Button>
           </DialogActions>
         </Dialog>
+
         {/* Dialog for Delete Button */}
         <Dialog
           classes={{ paper: classes.deleteDialog }}
@@ -166,10 +177,19 @@ class TermCard extends Component {
           <DialogTitle onClose={this.handleCloseDelete}>Delete</DialogTitle>
           Are you sure you want to delete this term?
           <DialogActions>
-            <Button onClick={this.handleCloseDelete} color="primary" classes={{label: classes.cancelDelete}}>
+            <Button
+              onClick={this.handleCloseDelete}
+              variant="outlined"
+              classes={{ label: classes.cancelDelete }}
+            >
               Cancel
             </Button>
-            <Button variant="contained" onClick={this.handleCloseDelete} color="secondary" classes={{label: classes.confirmDelete}}>
+            <Button
+              variant="contained"
+              onClick={this.handleCloseDelete}
+              color="secondary"
+              classes={{ label: classes.confirmDelete }}
+            >
               Delete
             </Button>
           </DialogActions>
