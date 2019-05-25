@@ -19,6 +19,12 @@ const styles = {
     width: "50%",
     paddingLeft: 25,
     paddingRight: 25
+  },
+  cancelAdd: {
+    textTransform: 'none',
+  },
+  confirmAdd: {
+    textTransform: 'none',
   }
 };
 
@@ -80,10 +86,10 @@ class Glossary extends Component {
           <TextField label="Term" margin="normal" />
           <TextField label="Definition" margin="normal" />
           <DialogActions>
-            <Button onClick={this.handleCloseAdd} color="primary">
+            <Button onClick={this.handleCloseAdd} color="primary" classes={{label: classes.cancelAdd}}>
               Cancel
             </Button>
-            <Button onClick={this.handleCloseAdd} color="primary">
+            <Button onClick={this.handleCloseAdd} color="primary" classes={{label: classes.confirmAdd}}>
               Add
             </Button>
           </DialogActions>

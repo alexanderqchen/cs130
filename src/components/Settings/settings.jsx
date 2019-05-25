@@ -32,11 +32,23 @@ const styles = {
     paddingLeft: 25,
     paddingRight: 25
   },
+  cancelAdd: {
+    textTransform: 'none',
+  },
+  confirmAdd: {
+    textTransform: 'none',
+  },
   deleteDialog: {
     width: "50%",
     paddingLeft: 25,
     paddingRight: 25
-  }
+  },
+  cancelDelete: {
+    textTransform: 'none',
+  },
+  confirmDelete: {
+    textTransform: 'none',
+  },
 };
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -147,10 +159,10 @@ class Settings extends Component {
             </DialogTitle>
             <TextField label="Email" margin="normal" />
             <DialogActions>
-              <Button onClick={this.handleCloseAdd} color="primary">
+              <Button onClick={this.handleCloseAdd} color="primary" classes={{label: classes.cancelAdd}}>
                 Cancel
               </Button>
-              <Button onClick={this.handleCloseAdd} color="primary">
+              <Button onClick={this.handleCloseAdd} color="primary" classes={{label: classes.confirmAdd}}>
                 Add
               </Button>
             </DialogActions>
@@ -167,10 +179,10 @@ class Settings extends Component {
             <DialogTitle onClose={this.handleCloseDelete}>Delete</DialogTitle>
             Are you sure you want to delete this user?
             <DialogActions>
-              <Button onClick={this.handleCloseDelete} color="primary">
+              <Button onClick={this.handleCloseDelete} color="primary" classes={{label: classes.cancelDelete}}>
                 Cancel
               </Button>
-              <Button onClick={this.handleCloseDelete} color="primary">
+              <Button variant="contained" onClick={this.handleCloseDelete} color="secondary" classes={{label: classes.confirmDelete}}>
                 Delete
               </Button>
             </DialogActions>

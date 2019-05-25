@@ -32,11 +32,23 @@ const styles = {
     paddingLeft: 25,
     paddingRight: 25
   },
+  cancelEdit: {
+    textTransform: 'none',
+  },
+  saveEdit: {
+    textTransform: 'none',
+  },
   deleteDialog: {
     width: "50%",
     paddingLeft: 25,
     paddingRight: 25
-  }
+  },
+  cancelDelete: {
+    textTransform: 'none',
+  },
+  confirmDelete: {
+    textTransform: 'none',
+  },
 };
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -135,10 +147,10 @@ class TermCard extends Component {
           <TextField label="Term" margin="normal" />
           <TextField label="Definition" margin="normal" />
           <DialogActions>
-            <Button onClick={this.handleCloseEdit} color="primary">
+            <Button onClick={this.handleCloseEdit} color="primary" classes={{label: classes.cancelEdit}}>
               Cancel
             </Button>
-            <Button onClick={this.handleCloseEdit} color="primary">
+            <Button variant="contained" onClick={this.handleCloseEdit} color="primary" classes={{label: classes.saveEdit}}>
               Save
             </Button>
           </DialogActions>
@@ -154,10 +166,10 @@ class TermCard extends Component {
           <DialogTitle onClose={this.handleCloseDelete}>Delete</DialogTitle>
           Are you sure you want to delete this term?
           <DialogActions>
-            <Button onClick={this.handleCloseDelete} color="primary">
+            <Button onClick={this.handleCloseDelete} color="primary" classes={{label: classes.cancelDelete}}>
               Cancel
             </Button>
-            <Button onClick={this.handleCloseDelete} color="primary">
+            <Button variant="contained" onClick={this.handleCloseDelete} color="secondary" classes={{label: classes.confirmDelete}}>
               Delete
             </Button>
           </DialogActions>
