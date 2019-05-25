@@ -1,36 +1,41 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/styles";
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
 import DeleteIcon from "@material-ui/icons/Close";
 import EditIcon from "@material-ui/icons/Edit";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import "typeface-roboto";
 
 const styles = {
   root: {},
-  definition: {
-    textAlign: "center"
-  },
+  definition: {},
   term: {
     textAlign: "center"
   },
-  button: {
-    marginLeft: 10,
-    marginRight: 10
+  buttonIcon: {
+    display: 'block',
+    margin: 10,
   },
   buttons: {
-    margin: "auto",
-    width: "50%",
-    padding: 10
+    padding: 15,
+    margin: 15,
+    display: 'block',
   },
   editDialog: {
-      
+    width: '50%',
+    paddingLeft: 25,
+    paddingRight: 25,
+  },
+  deleteDialog: {
+    width: '50%',
+    paddingLeft: 25,
+    paddingRight: 25,
   },
 };
 
@@ -49,42 +54,42 @@ class TermCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        openEdit: false,
-        openAdd: false,
+      openEdit: false,
+      openDelete: false
     };
     this.handleClickOpenEdit = this.handleClickOpenEdit.bind(this);
     this.handleCloseEdit = this.handleCloseEdit.bind(this);
-    this.handleClickOpenAdd = this.handleClickOpenAdd.bind(this);
-    this.handleCloseAdd = this.handleCloseAdd.bind(this);
+    this.handleClickOpenDelete = this.handleClickOpenDelete.bind(this);
+    this.handleCloseDelete = this.handleCloseDelete.bind(this);
   }
 
   handleClickOpenEdit() {
     this.setState({
-        openEdit: true,
+      openEdit: true
     });
   }
 
   handleCloseEdit() {
     this.setState({
-        openEdit: false,
+      openEdit: false
     });
   }
 
-  handleClickOpenAdd() {
+  handleClickOpenDelete() {
     this.setState({
-        openAdd: true,
+      openDelete: true
     });
   }
 
-  handleCloseAdd() {
+  handleCloseDelete() {
     this.setState({
-        openAdd: false,
+      openDelete: false
     });
   }
 
   render() {
     const { classes, term, definition, edit, del } = this.props;
-    const { openEdit, openAdd } = this.state;
+    const { openEdit, openDelete } = this.state;
     return (
       <div className={classes.root}>
         <Grid container>
@@ -92,11 +97,16 @@ class TermCard extends Component {
             <p className={classes.term}>{term}</p>
           </Grid>
           <Grid item xs={6}>
-            {definition}
+            <p className={classes.definition}>{definition}</p>
           </Grid>
           <Grid item xs={3} className={classes.buttons}>
             {edit ? (
-              <Fab color="primary" aria-label="Edit" className={classes.button} onClick={this.handleClickOpenEdit}>
+              <Fab
+                color="primary"
+                aria-label="Edit"
+                classes={{root: classes.buttonIcon}}
+                onClick={this.handleClickOpenEdit}
+              >
                 <EditIcon />
               </Fab>
             ) : null}
@@ -104,8 +114,8 @@ class TermCard extends Component {
               <Fab
                 color="primary"
                 aria-label="Delete"
-                className={classes.button}
-                onClick={this.handleClickOpenAdd}
+                classes={{root: classes.buttonIcon}}
+                onClick={this.handleClickOpenDelete}
               >
                 <DeleteIcon />
               </Fab>
@@ -114,58 +124,41 @@ class TermCard extends Component {
         </Grid>
         <hr />
         <Dialog
-            className={classes.editDialog}
-            onClose={this.handleCloseEdit}
-            open={openEdit}
-            disableBackdropClick
-            disableEscapeKeyDown
+          classes={{paper: classes.editDialog}}
+          onClose={this.handleCloseEdit}
+          open={openEdit}
+          disableBackdropClick
+          disableEscapeKeyDown
         >
-            <DialogTitle onClose={this.handleCloseEdit}>
-                Edit Term
-            </DialogTitle>
-            <TextField
-                label="Term"
-                margin="normal"
-            />
-            <TextField
-                label="Definition"
-                margin="normal"
-            />
-            <DialogActions>
-                <Button onClick={this.handleCloseEdit} color="primary">
-                    Cancel
-                </Button>
-                <Button onClick={this.handleCloseEdit} color="primary">
-                    Save
-                </Button>
-            </DialogActions>
+          <DialogTitle onClose={this.handleCloseEdit}>Edit Term</DialogTitle>
+          <TextField label="Term" margin="normal" />
+          <TextField label="Definition" margin="normal" />
+          <DialogActions>
+            <Button onClick={this.handleCloseEdit} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleCloseEdit} color="primary">
+              Save
+            </Button>
+          </DialogActions>
         </Dialog>
         <Dialog
-            className={classes.addDialog}
-            onClose={this.handleCloseAdd}
-            open={openAdd}
-            disableBackdropClick
-            disableEscapeKeyDown
+          classes={{paper: classes.deleteDialog}}
+          onClose={this.handleCloseDelete}
+          open={openDelete}
+          disableBackdropClick
+          disableEscapeKeyDown
         >
-            <DialogTitle onClose={this.handleCloseAdd}>
-                Add Term
-            </DialogTitle>
-            <TextField
-                label="Term"
-                margin="normal"
-            />
-            <TextField
-                label="Definition"
-                margin="normal"
-            />
-            <DialogActions>
-                <Button onClick={this.handleCloseAdd} color="primary">
-                    Cancel
-                </Button>
-                <Button onClick={this.handleCloseAdd} color="primary">
-                    Save
-                </Button>
-            </DialogActions>
+          <DialogTitle onClose={this.handleCloseDelete}>Delete</DialogTitle>
+          Are you sure you want to delete this term?
+          <DialogActions>
+            <Button onClick={this.handleCloseDelete} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleCloseDelete} color="primary">
+              Delete
+            </Button>
+          </DialogActions>
         </Dialog>
       </div>
     );

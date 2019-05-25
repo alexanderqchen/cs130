@@ -5,10 +5,10 @@ import "typeface-roboto";
 
 const styles = {
   root: {
-    padding: 30,
+    padding: 30
   },
   title: {
-    fontWeight: "normal",
+    fontWeight: "normal"
   }
 };
 
