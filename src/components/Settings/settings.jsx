@@ -7,8 +7,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Fab from "@material-ui/core/Fab";
+import FormControl from '@material-ui/core/FormControl';
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
+import InputLabel from '@material-ui/core/InputLabel';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -157,7 +159,15 @@ class Settings extends Component {
             <DialogTitle onClose={this.handleCloseAdd}>
               Add New Admin User
             </DialogTitle>
-            <TextField label="Email" margin="normal" />
+            <FormControl>
+              <InputLabel shrink>
+                Email
+              </InputLabel>
+              <TextField
+                margin="normal" 
+                variant="outlined"
+              />
+            </FormControl>
             <DialogActions>
               <Button
                 onClick={this.handleCloseAdd}

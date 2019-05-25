@@ -5,7 +5,9 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Fab from "@material-ui/core/Fab";
+import FormControl from '@material-ui/core/FormControl';
 import Grid from "@material-ui/core/Grid";
+import InputLabel from '@material-ui/core/InputLabel';
 import DeleteIcon from "@material-ui/icons/CloseOutlined";
 import EditIcon from "@material-ui/icons/EditOutlined";
 import TextField from "@material-ui/core/TextField";
@@ -145,8 +147,26 @@ class TermCard extends Component {
           disableEscapeKeyDown
         >
           <DialogTitle onClose={this.handleCloseEdit}>Edit Term</DialogTitle>
-          <TextField label="Term" margin="normal" />
-          <TextField label="Definition" margin="normal" />
+          <FormControl>
+            <InputLabel shrink>
+              Term
+            </InputLabel>
+            <TextField
+              margin="normal" 
+              variant="outlined"
+            />
+          </FormControl>
+          <FormControl>
+            <InputLabel shrink>
+              Definition
+            </InputLabel>
+            <TextField
+              margin="normal" 
+              multiline
+              rows="4"
+              variant="outlined"
+            />
+          </FormControl>
           <DialogActions>
             <Button
               onClick={this.handleCloseEdit}
