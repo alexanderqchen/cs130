@@ -7,8 +7,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Fab from "@material-ui/core/Fab";
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
 import TextField from "@material-ui/core/TextField";
 import TermCard from "../TermCard/termcard";
 import "typeface-roboto";
@@ -86,24 +86,12 @@ class Glossary extends Component {
         >
           <DialogTitle onClose={this.handleCloseAdd}>Add Term</DialogTitle>
           <FormControl>
-            <InputLabel shrink>
-              Term
-            </InputLabel>
-            <TextField
-              margin="normal" 
-              variant="outlined"
-            />
+            <InputLabel shrink>Term</InputLabel>
+            <TextField margin="normal" variant="outlined" />
           </FormControl>
           <FormControl>
-            <InputLabel shrink>
-              Definition
-            </InputLabel>
-            <TextField
-              margin="normal" 
-              multiline
-              rows="4"
-              variant="outlined"
-            />
+            <InputLabel shrink>Definition</InputLabel>
+            <TextField margin="normal" multiline rows="4" variant="outlined" />
           </FormControl>
           <DialogActions>
             <Button
