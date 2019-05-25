@@ -2,17 +2,17 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
-import DeleteIcon from '@material-ui/icons/Close';
+import DeleteIcon from "@material-ui/icons/Close";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from "@material-ui/core/IconButton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
 import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import "typeface-roboto";
@@ -25,7 +25,7 @@ const styles = {
     fontWeight: "normal"
   },
   emailList: {
-    paddingLeft: 25,
+    paddingLeft: 25
   },
   addDialog: {
     width: "50%",
@@ -51,8 +51,9 @@ class Settings extends Component {
     super(props);
     this.state = {
       openAdd: false,
-      openDelete: false,
+      openDelete: false
     };
+    this.generate = this.generate.bind(this);
     this.handleClickOpenAdd = this.handleClickOpenAdd.bind(this);
     this.handleCloseAdd = this.handleCloseAdd.bind(this);
     this.handleClickOpenDelete = this.handleClickOpenDelete.bind(this);
@@ -61,10 +62,10 @@ class Settings extends Component {
 
   // Used to fetch a list of valid email addresses
   generate(element) {
-    return [0, 1, 2].map(value => 
+    return [0, 1, 2].map(value =>
       React.cloneElement(element, {
-        key: value,
-      }),
+        key: value
+      })
     );
   }
 
@@ -104,13 +105,15 @@ class Settings extends Component {
               <List>
                 {this.generate(
                   <div>
-                    <hr/>
+                    <hr />
                     <ListItem>
-                      <ListItemText
-                        primary='some email here'
-                      />
+                      <ListItemText primary="some email here" />
                       <ListItemSecondaryAction>
-                        <IconButton edge="end" aria-label="Delete" onClick={this.handleClickOpenDelete}>
+                        <IconButton
+                          edge="end"
+                          aria-label="Delete"
+                          onClick={this.handleClickOpenDelete}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </ListItemSecondaryAction>
@@ -120,9 +123,13 @@ class Settings extends Component {
               </List>
             </div>
           </Grid>
-          <Grid item xs={4}></Grid>
-          <Grid item xs={4}></Grid>
-          <Fab color="primary" aria-label="Add" onClick={this.handleClickOpenAdd}>
+          <Grid item xs={4} />
+          <Grid item xs={4} />
+          <Fab
+            color="primary"
+            aria-label="Add"
+            onClick={this.handleClickOpenAdd}
+          >
             <AddIcon />
           </Fab>
 
@@ -134,7 +141,9 @@ class Settings extends Component {
             disableBackdropClick
             disableEscapeKeyDown
           >
-            <DialogTitle onClose={this.handleCloseAdd}>Add New Admin User</DialogTitle>
+            <DialogTitle onClose={this.handleCloseAdd}>
+              Add New Admin User
+            </DialogTitle>
             <TextField label="Email" margin="normal" />
             <DialogActions>
               <Button onClick={this.handleCloseAdd} color="primary">

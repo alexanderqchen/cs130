@@ -67,7 +67,7 @@ class Glossary extends Component {
         <Fab color="primary" aria-label="Add" onClick={this.handleClickOpenAdd}>
           <AddIcon />
         </Fab>
-        
+
         {/* Dialog for Add Button */}
         <Dialog
           classes={{ paper: classes.addDialog }}
