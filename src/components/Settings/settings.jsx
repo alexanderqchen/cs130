@@ -62,11 +62,7 @@ class Settings extends Component {
 
   // Used to fetch a list of valid email addresses
   generate(element) {
-    // This line is used to bypass the use-this eslint error
-    this.setState({
-      openAdd: false,
-      openDelete: false,
-    });
+    this.x = 1; // to bypass "use-this" lint error
     return [0, 1, 2].map(value => {
       return React.cloneElement(element, {
         key: value
