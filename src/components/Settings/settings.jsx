@@ -1,5 +1,19 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/styles";
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
+import DeleteIcon from '@material-ui/icons/Close';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Fab from "@material-ui/core/Fab";
+import Grid from "@material-ui/core/Grid";
+import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import "typeface-roboto";
 
@@ -9,6 +23,19 @@ const styles = {
   },
   title: {
     fontWeight: "normal"
+  },
+  emailList: {
+    paddingLeft: 25,
+  },
+  addDialog: {
+    width: "50%",
+    paddingLeft: 25,
+    paddingRight: 25
+  },
+  deleteDialog: {
+    width: "50%",
+    paddingLeft: 25,
+    paddingRight: 25
   }
 };
 
@@ -20,11 +47,125 @@ class Settings extends Component {
     };
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      openAdd: false,
+      openDelete: false,
+    };
+    this.handleClickOpenAdd = this.handleClickOpenAdd.bind(this);
+    this.handleCloseAdd = this.handleCloseAdd.bind(this);
+    this.handleClickOpenDelete = this.handleClickOpenDelete.bind(this);
+    this.handleCloseDelete = this.handleCloseDelete.bind(this);
+  }
+
+  // Used to fetch a list of valid email addresses
+  generate(element) {
+    return [0, 1, 2].map(value => 
+      React.cloneElement(element, {
+        key: value,
+      }),
+    );
+  }
+
+  handleClickOpenAdd() {
+    this.setState({
+      openAdd: true
+    });
+  }
+
+  handleCloseAdd() {
+    this.setState({
+      openAdd: false
+    });
+  }
+
+  handleClickOpenDelete() {
+    this.setState({
+      openDelete: true
+    });
+  }
+
+  handleCloseDelete() {
+    this.setState({
+      openDelete: false
+    });
+  }
+
   render() {
     const { classes } = this.props;
+    const { openAdd, openDelete } = this.state;
     return (
       <div className={classes.root}>
         <h1 className={classes.title}>Accounts</h1>
+        <Grid container>
+          <Grid item xs={4}>
+            <div className={classes.emailList}>
+              <List>
+                {this.generate(
+                  <div>
+                    <hr/>
+                    <ListItem>
+                      <ListItemText
+                        primary='some email here'
+                      />
+                      <ListItemSecondaryAction>
+                        <IconButton edge="end" aria-label="Delete" onClick={this.handleClickOpenDelete}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </div>
+                )}
+              </List>
+            </div>
+          </Grid>
+          <Grid item xs={4}></Grid>
+          <Grid item xs={4}></Grid>
+          <Fab color="primary" aria-label="Add" onClick={this.handleClickOpenAdd}>
+            <AddIcon />
+          </Fab>
+
+          {/* Add User Dialog */}
+          <Dialog
+            classes={{ paper: classes.addDialog }}
+            onClose={this.handleCloseAdd}
+            open={openAdd}
+            disableBackdropClick
+            disableEscapeKeyDown
+          >
+            <DialogTitle onClose={this.handleCloseAdd}>Add New Admin User</DialogTitle>
+            <TextField label="Email" margin="normal" />
+            <DialogActions>
+              <Button onClick={this.handleCloseAdd} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.handleCloseAdd} color="primary">
+                Add
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+          {/* Remove User Dialog */}
+          <Dialog
+            classes={{ paper: classes.deleteDialog }}
+            onClose={this.handleCloseDelete}
+            open={openDelete}
+            disableBackdropClick
+            disableEscapeKeyDown
+          >
+            <DialogTitle onClose={this.handleCloseDelete}>Delete</DialogTitle>
+            Are you sure you want to delete this user?
+            <DialogActions>
+              <Button onClick={this.handleCloseDelete} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.handleCloseDelete} color="primary">
+                Delete
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Grid>
       </div>
     );
   }

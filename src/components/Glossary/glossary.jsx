@@ -33,7 +33,7 @@ class Glossary extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openAdd: false,
+      openAdd: false
     };
     this.handleClickOpenAdd = this.handleClickOpenAdd.bind(this);
     this.handleCloseAdd = this.handleCloseAdd.bind(this);
@@ -41,13 +41,13 @@ class Glossary extends Component {
 
   handleClickOpenAdd() {
     this.setState({
-      openAdd: true,
+      openAdd: true
     });
   }
 
   handleCloseAdd() {
     this.setState({
-      openAdd: false,
+      openAdd: false
     });
   }
 
@@ -67,6 +67,7 @@ class Glossary extends Component {
         <Fab color="primary" aria-label="Add" onClick={this.handleClickOpenAdd}>
           <AddIcon />
         </Fab>
+        
         {/* Dialog for Add Button */}
         <Dialog
           classes={{ paper: classes.addDialog }}
