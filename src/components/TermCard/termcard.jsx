@@ -19,24 +19,24 @@ const styles = {
     textAlign: "center"
   },
   buttonIcon: {
-    display: 'block',
-    margin: 10,
+    display: "block",
+    margin: 10
   },
   buttons: {
     padding: 15,
     margin: 15,
-    display: 'block',
+    display: "block"
   },
   editDialog: {
-    width: '50%',
+    width: "50%",
     paddingLeft: 25,
-    paddingRight: 25,
+    paddingRight: 25
   },
   deleteDialog: {
-    width: '50%',
+    width: "50%",
     paddingLeft: 25,
-    paddingRight: 25,
-  },
+    paddingRight: 25
+  }
 };
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -104,7 +104,7 @@ class TermCard extends Component {
               <Fab
                 color="primary"
                 aria-label="Edit"
-                classes={{root: classes.buttonIcon}}
+                classes={{ root: classes.buttonIcon }}
                 onClick={this.handleClickOpenEdit}
               >
                 <EditIcon />
@@ -114,7 +114,7 @@ class TermCard extends Component {
               <Fab
                 color="primary"
                 aria-label="Delete"
-                classes={{root: classes.buttonIcon}}
+                classes={{ root: classes.buttonIcon }}
                 onClick={this.handleClickOpenDelete}
               >
                 <DeleteIcon />
@@ -123,8 +123,9 @@ class TermCard extends Component {
           </Grid>
         </Grid>
         <hr />
+        {/* Dialog for Edit Button */}
         <Dialog
-          classes={{paper: classes.editDialog}}
+          classes={{ paper: classes.editDialog }}
           onClose={this.handleCloseEdit}
           open={openEdit}
           disableBackdropClick
@@ -142,8 +143,9 @@ class TermCard extends Component {
             </Button>
           </DialogActions>
         </Dialog>
+        {/* Dialog for Delete Button */}
         <Dialog
-          classes={{paper: classes.deleteDialog}}
+          classes={{ paper: classes.deleteDialog }}
           onClose={this.handleCloseDelete}
           open={openDelete}
           disableBackdropClick
