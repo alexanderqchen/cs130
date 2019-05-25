@@ -62,10 +62,10 @@ class Settings extends Component {
 
   // Used to fetch a list of valid email addresses
   generate(element) {
-    return [0, 1, 2].map(value => {
-      React.cloneElement(element, {
+    return [0, 1, 2].map((value) => { 
+      return React.cloneElement(element, {
         key: value
-      })
+      });
     });
   }
 
