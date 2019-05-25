@@ -6,6 +6,7 @@ import "typeface-roboto";
 import PropTypes from "prop-types";
 import Courtroom from "../Courtroom/courtroom";
 import Glossary from "../Glossary/glossary";
+import Settings from "../Settings/settings";
 import withAuthorization from "../Session/withAuthorization";
 
 const styles = {
@@ -25,7 +26,7 @@ const styles = {
 class Admin extends Component {
   static get propTypes() {
     return {
-      classes: PropTypes.instanceOf(Map).isRequired
+      classes: PropTypes.instanceOf(Object).isRequired
     };
   }
 
@@ -61,7 +62,7 @@ class Admin extends Component {
         </div>
         {value === 0 && <Courtroom />}
         {value === 1 && <Glossary />}
-        {value === 2 && <p>Page Three</p>}
+        {value === 2 && <Settings />}
       </div>
     );
   }

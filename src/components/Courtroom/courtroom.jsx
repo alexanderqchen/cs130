@@ -14,7 +14,7 @@ const styles = {
 class Courtroom extends Component {
   static get propTypes() {
     return {
-      classes: PropTypes.instanceOf(Map).isRequired
+      classes: PropTypes.instanceOf(Object).isRequired
     };
   }
 
