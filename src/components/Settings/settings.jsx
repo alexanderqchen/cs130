@@ -19,6 +19,10 @@ import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import "typeface-roboto";
 
+// TODOs: 
+// Color the add button differently
+// Add dialog is partially styled
+// Add button should be positioned absolute bottom right
 const styles = {
   root: {
     padding: 30
@@ -53,7 +57,6 @@ const styles = {
   }
 };
 
-// eslint-disable-next-line react/prefer-stateless-function
 class Settings extends Component {
   static get propTypes() {
     return {
@@ -70,8 +73,10 @@ class Settings extends Component {
     this.generate = this.generate.bind(this);
     this.handleClickOpenAdd = this.handleClickOpenAdd.bind(this);
     this.handleCloseAdd = this.handleCloseAdd.bind(this);
+    this.handleConfirmAdd = this.handleConfirmAdd.bind(this);
     this.handleClickOpenDelete = this.handleClickOpenDelete.bind(this);
     this.handleCloseDelete = this.handleCloseDelete.bind(this);
+    this.handleConfirmDelete = this.handleConfirmDelete.bind(this);
   }
 
   // Used to fetch a list of valid email addresses
@@ -84,25 +89,45 @@ class Settings extends Component {
     });
   }
 
+  // When the user clicks on the add button, open Add dialog
   handleClickOpenAdd() {
     this.setState({
       openAdd: true
     });
   }
 
+  // Handle the logic when the user closes the Add dialog
   handleCloseAdd() {
     this.setState({
       openAdd: false
     });
   }
 
+  // Handle the logic when a user adds an account (Presses Add in Add dialog)
+  handleConfirmAdd() {
+    // Add logic here
+    this.setState({
+      openAdd: false
+    });
+  }
+
+  // When the user clicks on the delete button, open dialog confirming deletion
   handleClickOpenDelete() {
     this.setState({
       openDelete: true
     });
   }
 
+  // Handle the logic when the user closes the dialog confirming deletion
   handleCloseDelete() {
+    this.setState({
+      openDelete: false
+    });
+  }
+
+  // Handle the logic when a user deletes an account (Presses Delete in Delete dialog)
+  handleConfirmDelete() {
+    // Add logic here
     this.setState({
       openDelete: false
     });
@@ -172,7 +197,7 @@ class Settings extends Component {
                 Cancel
               </Button>
               <Button
-                onClick={this.handleCloseAdd}
+                onClick={this.handleConfirmAdd}
                 color="primary"
                 classes={{ label: classes.confirmAdd }}
               >
@@ -201,7 +226,7 @@ class Settings extends Component {
               </Button>
               <Button
                 variant="contained"
-                onClick={this.handleCloseDelete}
+                onClick={this.handleConfirmDelete}
                 color="secondary"
                 classes={{ label: classes.confirmDelete }}
               >

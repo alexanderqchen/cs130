@@ -73,29 +73,51 @@ class TermCard extends Component {
     };
     this.handleClickOpenEdit = this.handleClickOpenEdit.bind(this);
     this.handleCloseEdit = this.handleCloseEdit.bind(this);
+    this.handleConfirmEdit = this.handleConfirmEdit.bind(this);
     this.handleClickOpenDelete = this.handleClickOpenDelete.bind(this);
     this.handleCloseDelete = this.handleCloseDelete.bind(this);
+    this.handleConfirmDelete = this.handleConfirmDelete.bind(this);
   }
 
+  // When the user clicks on the edit button, open Edit dialog
   handleClickOpenEdit() {
     this.setState({
       openEdit: true
     });
   }
 
+  // Handle the logic when the user closes the Edit dialog
   handleCloseEdit() {
     this.setState({
       openEdit: false
     });
   }
 
+  // Handle the logic when the user saves the edits
+  handleConfirmEdit() {
+    // Add logic here
+    this.setState({
+      openEdit: false
+    });
+  }
+
+  // When the user clicks on the delete button, open dialog confirming deletion
   handleClickOpenDelete() {
     this.setState({
       openDelete: true
     });
   }
 
+  // Handle the logic when the user closes the dialog confirming deletion
   handleCloseDelete() {
+    this.setState({
+      openDelete: false
+    });
+  }
+
+  // Handle the logic when the user deletes the term
+  handleConfirmDelete() {
+    // Add logic here
     this.setState({
       openDelete: false
     });
@@ -165,7 +187,7 @@ class TermCard extends Component {
             </Button>
             <Button
               variant="contained"
-              onClick={this.handleCloseEdit}
+              onClick={this.handleConfirmEdit}
               color="primary"
               classes={{ label: classes.saveEdit }}
             >
@@ -194,7 +216,7 @@ class TermCard extends Component {
             </Button>
             <Button
               variant="contained"
-              onClick={this.handleCloseDelete}
+              onClick={this.handleConfirmDelete}
               color="secondary"
               classes={{ label: classes.confirmDelete }}
             >

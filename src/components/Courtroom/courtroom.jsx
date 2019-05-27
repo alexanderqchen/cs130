@@ -10,6 +10,8 @@ const styles = {
   }
 };
 
+// Coding for the future: there will be states so it's best to set
+// the code as a React class
 // eslint-disable-next-line react/prefer-stateless-function
 class Courtroom extends Component {
   static get propTypes() {

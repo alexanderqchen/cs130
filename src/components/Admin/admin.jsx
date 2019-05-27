@@ -39,6 +39,7 @@ class Admin extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  // This method handles changes when user switches between tabs
   handleChange(event, value) {
     this.setState({ value });
   }

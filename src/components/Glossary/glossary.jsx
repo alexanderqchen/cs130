@@ -13,6 +13,10 @@ import TextField from "@material-ui/core/TextField";
 import TermCard from "../TermCard/termcard";
 import "typeface-roboto";
 
+// TODOs: 
+// Color the add button differently
+// Add dialog is partially styled
+// Add button should be positioned absolute bottom right
 const styles = {
   root: {
     overflow: "scroll"
@@ -30,7 +34,6 @@ const styles = {
   }
 };
 
-// eslint-disable-next-line react/prefer-stateless-function
 class Glossary extends Component {
   static get propTypes() {
     return {
@@ -45,15 +48,26 @@ class Glossary extends Component {
     };
     this.handleClickOpenAdd = this.handleClickOpenAdd.bind(this);
     this.handleCloseAdd = this.handleCloseAdd.bind(this);
+    this.handleConfirmAdd = this.handleConfirmAdd.bind(this);
   }
 
+  // Handle the logic when a term is to be added
   handleClickOpenAdd() {
     this.setState({
       openAdd: true
     });
   }
 
+  // Handle the logic when the user cancels the action to add a term
   handleCloseAdd() {
+    this.setState({
+      openAdd: false
+    });
+  }
+
+  // Handle the logic when a user adds a term (Presses Add in Add dialog)
+  handleConfirmAdd() {
+    // Add logic here
     this.setState({
       openAdd: false
     });
@@ -102,7 +116,7 @@ class Glossary extends Component {
               Cancel
             </Button>
             <Button
-              onClick={this.handleCloseAdd}
+              onClick={this.handleConfirmAdd}
               color="primary"
               classes={{ label: classes.confirmAdd }}
             >
