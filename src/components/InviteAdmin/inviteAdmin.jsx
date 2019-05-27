@@ -6,30 +6,6 @@ import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Firebase, { withFirebase } from "../Firebase/firebase";
 
-/*
-const InviteAdminButton = ({ firebase }) => (
-  <button type="submit" onClick={
-    firebase.auth.createUserWithEmailAndPassword("created@gmail.com", "test123")
-      .catch(
-        function(error) {
-          console.log("ERROR CAUGHT" + error)
-        }
-      )
-      .then(
-        function() {
-          console.log("SUCC")
-        }
-      )
-  }>
-    Invite Admin
-  </button>
-);
-
-InviteAdminButton.propTypes = {
-  firebase: PropTypes.instanceOf(Firebase).isRequired
-};
-*/
-
 const ST_INPUT = 1;
 const ST_SUCC = 2;
 
