@@ -12,6 +12,16 @@ const firebaseConfig = {
   appId: "1:534972309583:web:781893fc117a5095"
 };
 
+/*
+Generates a random password of 32 alphanumeric chars.
+Used as the user's default password, which will never be given
+to the user. The user will need to follow firebase's "Reset password"
+workflow to create a real password
+ */
+function getRandomPassword(){
+  return Math.random().toString(36).slice(-16);
+}
+
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
@@ -26,6 +36,9 @@ class Firebase {
     this.auth.signInWithEmailAndPassword(email, password);
 
   doSignOut = () => this.auth.signOut();
+
+  // Create user with specified email, and a random 32-length alphanumeric password
+  doCreateNewUser = email => this.auth.createUserWithEmailAndPassword(email, getRandomPassword())
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
