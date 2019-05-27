@@ -18,8 +18,10 @@ Used as the user's default password, which will never be given
 to the user. The user will need to follow firebase's "Reset password"
 workflow to create a real password
  */
-function getRandomPassword(){
-  return Math.random().toString(36).slice(-16);
+function getRandomPassword() {
+  return Math.random()
+    .toString(36)
+    .slice(-16);
 }
 
 class Firebase {
@@ -38,7 +40,8 @@ class Firebase {
   doSignOut = () => this.auth.signOut();
 
   // Create user with specified email, and a random 32-length alphanumeric password
-  doCreateNewUser = email => this.auth.createUserWithEmailAndPassword(email, getRandomPassword())
+  doCreateNewUser = email =>
+    this.auth.createUserWithEmailAndPassword(email, getRandomPassword());
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
