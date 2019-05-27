@@ -19,7 +19,7 @@ import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 import "typeface-roboto";
 
-// TODOs: 
+// TODOs:
 // Color the add button differently
 // Add dialog is partially styled
 // Add button should be positioned absolute bottom right

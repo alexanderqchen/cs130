@@ -13,7 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import TermCard from "../TermCard/termcard";
 import "typeface-roboto";
 
-// TODOs: 
+// TODOs:
 // Color the add button differently
 // Add dialog is partially styled
 // Add button should be positioned absolute bottom right

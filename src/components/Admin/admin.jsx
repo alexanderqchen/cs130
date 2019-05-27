@@ -8,8 +8,6 @@ import Courtroom from "../Courtroom/courtroom";
 import Glossary from "../Glossary/glossary";
 import Settings from "../Settings/settings";
 import withAuthorization from "../Session/withAuthorization";
-import InviteAdminButtom from "../InviteAdmin/inviteAdmin";
-import SignOutButton from "../SignOut/signOut";
 
 const styles = {
   root: {

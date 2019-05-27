@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Firebase, { withFirebase } from "../Firebase/firebase";
 
@@ -57,11 +56,7 @@ class InviteAdminFormBase extends Component {
 
     let pageContent;
     if (error) {
-      pageContent = (
-        <Container component="main" maxWidth="xs">
-          {error}
-        </Container>
-      );
+      pageContent = <div> {error} </div>;
     } else if (st === ST_INPUT) {
       pageContent = (
         <div>
@@ -96,11 +91,7 @@ class InviteAdminFormBase extends Component {
       pageContent = <div>Error undefined state {st}</div>;
     }
 
-    return (
-      <Container component="main" maxWidth="xs">
-        {pageContent}
-      </Container>
-    );
+    return <div> {pageContent} </div>;
   }
 }
 

@@ -32,7 +32,7 @@ const styles = {
   editDialog: {
     width: "50%",
     paddingLeft: 25,
-    paddingRight: 25,
+    paddingRight: 25
   },
   cancelEdit: {
     textTransform: "none"
