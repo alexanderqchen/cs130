@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import SignInForm from "../SignIn/signIn";
 import withAuthorization from "../Session/withAuthorization";
+import PasswordForgetForm from "../PasswordForget/pwForget";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -17,31 +17,36 @@ const useStyles = makeStyles(theme => ({
 }));
 
 class Landing extends Component {
-  //  classes is not an instance of string but eslint is forcing me to give some prop type
-  //  even from official documentation they have this as proptypes.object but eslint doesn't
-  //  allow this - if someone can find the typem just change it
   static get propTypes() {
     return {
-      classes: PropTypes.instanceOf(String).isRequired
+      classes: PropTypes.instanceOf(Object).isRequired
     };
   }
 
   constructor(props) {
     super(props);
-    this.state = { open: false };
+    this.state = { signInOpen: false, forgetPwOpen: false };
   }
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    this.setState({ signInOpen: true });
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
+  handleClose = value => {
+    if (value) {
+      this.setState({ signInOpen: false, forgetPwOpen: true });
+    } else {
+      this.setState({ signInOpen: false });
+    }
+  };
+
+  handlePwClose = () => {
+    this.setState({ forgetPwOpen: false });
   };
 
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
+    const { signInOpen, forgetPwOpen } = this.state;
     return (
       <div>
         <Grid container justify="space-between" spacing={24}>
@@ -57,14 +62,8 @@ class Landing extends Component {
             </Button>
           </Grid>
         </Grid>
-        <Dialog
-          open={open}
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <SignInForm />
-        </Dialog>
+        <SignInForm open={signInOpen} onClose={this.handleClose} />
+        <PasswordForgetForm open={forgetPwOpen} onClose={this.handlePwClose} />
       </div>
     );
   }

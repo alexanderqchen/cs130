@@ -23,7 +23,7 @@ const withAuthorization = Component => isPublic => {
       this.listener = firebase.auth.onAuthStateChanged(authUser => {
         this.setState({ authUser, display: true });
         if (!authUser && !isPublic) {
-          history.push(ROUTES.SIGN_IN);
+          history.push(ROUTES.LANDING);
         } else if (authUser && isPublic) {
           history.push(ROUTES.ADMIN_PANEL);
         }
