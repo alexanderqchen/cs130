@@ -32,7 +32,7 @@ const styles = {
   editDialog: {
     width: "50%",
     paddingLeft: 25,
-    paddingRight: 25,
+    paddingRight: 25
   },
   cancelEdit: {
     textTransform: "none"
@@ -58,19 +58,34 @@ class TermCard extends Component {
   static get propTypes() {
     return {
       term: PropTypes.string.isRequired,
+      isTermEditable: PropTypes.bool.isRequired,
       definition: PropTypes.string.isRequired,
       classes: PropTypes.instanceOf(Object).isRequired,
       edit: PropTypes.bool.isRequired,
-      del: PropTypes.bool.isRequired
+      del: PropTypes.bool.isRequired,
+      deleteTermFromDb: PropTypes.func,
+      editTermToDb: PropTypes.func
+    };
+  }
+
+  static get defaultProps() {
+    return {
+      deleteTermFromDb: () => {},
+      editTermToDb: () => {}
     };
   }
 
   constructor(props) {
     super(props);
     this.state = {
+      definitionInput: props.definition,
+      termInput: props.term,
       openEdit: false,
       openDelete: false
     };
+    this.onDefinitionInputChange = this.onDefinitionInputChange.bind(this);
+    this.onTermInputChange = this.onTermInputChange.bind(this);
+
     this.handleClickOpenEdit = this.handleClickOpenEdit.bind(this);
     this.handleCloseEdit = this.handleCloseEdit.bind(this);
     this.handleConfirmEdit = this.handleConfirmEdit.bind(this);
@@ -79,25 +94,47 @@ class TermCard extends Component {
     this.handleConfirmDelete = this.handleConfirmDelete.bind(this);
   }
 
+  onDefinitionInputChange(event) {
+    this.setState({
+      definitionInput: event.target.value
+    });
+  }
+
+  onTermInputChange(event) {
+    this.setState({
+      termInput: event.target.value
+    });
+  }
+
   // When the user clicks on the edit button, open Edit dialog
   handleClickOpenEdit() {
+    const { term, definition } = this.props;
     this.setState({
+      termInput: term,
+      definitionInput: definition,
       openEdit: true
     });
   }
 
   // Handle the logic when the user closes the Edit dialog
   handleCloseEdit() {
+    const { term, definition } = this.props;
     this.setState({
+      termInput: term,
+      definitionInput: definition,
       openEdit: false
     });
   }
 
   // Handle the logic when the user saves the edits
   handleConfirmEdit() {
-    // Add logic here
-    this.setState({
-      openEdit: false
+    const { term, editTermToDb } = this.props;
+    const { termInput, definitionInput } = this.state;
+
+    editTermToDb(term, termInput, definitionInput).then(() => {
+      this.setState({
+        openEdit: false
+      });
     });
   }
 
@@ -117,15 +154,17 @@ class TermCard extends Component {
 
   // Handle the logic when the user deletes the term
   handleConfirmDelete() {
-    // Add logic here
-    this.setState({
-      openDelete: false
+    const { term, deleteTermFromDb } = this.props;
+    deleteTermFromDb(term).then(() => {
+      this.setState({
+        openDelete: false
+      });
     });
   }
 
   render() {
-    const { classes, term, definition, edit, del } = this.props;
-    const { openEdit, openDelete } = this.state;
+    const { classes, term, isTermEditable, definition, edit, del } = this.props;
+    const { termInput, definitionInput, openEdit, openDelete } = this.state;
     return (
       <div className={classes.root}>
         <Grid container>
@@ -171,11 +210,24 @@ class TermCard extends Component {
           <DialogTitle onClose={this.handleCloseEdit}>Edit Term</DialogTitle>
           <FormControl>
             <InputLabel shrink>Term</InputLabel>
-            <TextField margin="normal" variant="outlined" />
+            <TextField
+              disabled={!isTermEditable}
+              value={termInput}
+              margin="normal"
+              variant="outlined"
+              onChange={this.onTermInputChange}
+            />
           </FormControl>
           <FormControl>
             <InputLabel shrink>Definition</InputLabel>
-            <TextField margin="normal" multiline rows="4" variant="outlined" />
+            <TextField
+              value={definitionInput}
+              margin="normal"
+              multiline
+              rows="4"
+              variant="outlined"
+              onChange={this.onDefinitionInputChange}
+            />
           </FormControl>
           <DialogActions>
             <Button
