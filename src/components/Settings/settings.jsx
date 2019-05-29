@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
+import CloseIcon from "@material-ui/icons/Close";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -14,7 +15,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import TextField from "@material-ui/core/TextField";
-import { Switch } from "@material-ui/core";
+import { IconButton, Snackbar, Switch } from "@material-ui/core";
 import PropTypes from "prop-types";
 import Firebase, { withFirebase } from "../Firebase/firebase";
 import "typeface-roboto";
@@ -77,6 +78,9 @@ class Settings extends Component {
       toggleDesiredBool: false,
       emailInput: "",
       emailInputWellFormatted: false,
+
+      snackbarOpen: false,
+      snackbarText: "",
       loading: true,
       users: null,
       usersObject: null
@@ -89,6 +93,8 @@ class Settings extends Component {
     this.handleClickOpenToggle = this.handleClickOpenToggle.bind(this);
     this.handleCloseToggle = this.handleCloseToggle.bind(this);
     this.handleConfirmToggle = this.handleConfirmToggle.bind(this);
+    this.handleShowSnackbar = this.handleShowSnackbar.bind(this);
+    this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
 
     this.fetchUserList = this.fetchUserList.bind(this);
     this.writeUserToDb = this.writeUserToDb.bind(this);
@@ -144,12 +150,66 @@ class Settings extends Component {
 
   // Handle the logic when a user adds an account (Presses Add in Add dialog)
   handleConfirmAdd() {
-    const { emailInput } = this.state;
-    this.writeUserToDb(emailInput, true);
-    // Add logic here
-    this.setState({
-      openAdd: false
-    });
+    const { firebase } = this.props;
+    const { emailInput, users } = this.state;
+
+    // If user already exists, do not allow the add
+    if (users.indexOf(emailInput.replace(".", ",")) !== -1) {
+      this.handleShowSnackbar("Admin with this email already exists");
+      return;
+    }
+
+    firebase
+      .doCreateNewUser(emailInput)
+      .then(() => firebase.doPasswordReset(emailInput))
+      .then(() => {
+        this.writeUserToDb(emailInput, true);
+      })
+      .then(() => {
+        this.setState({
+          openAdd: false
+        });
+      })
+      .then(() => {
+        this.handleShowSnackbar(
+          `Successfully invited admin with email ${emailInput.replace(
+            ",",
+            "."
+          )}`
+        );
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        if (errorCode === "auth/email-already-in-use") {
+          this.writeUserToDb(emailInput, true)
+            .then(() => {
+              this.setState({
+                openAdd: false
+              });
+            })
+            .then(() => {
+              this.handleShowSnackbar(
+                "Admin with email already exists. Have them use the 'forgot password' option"
+              );
+            });
+        } else if (errorCode === "auth/invalid-email") {
+          // Should never happen, since input box verifies email first
+          this.handleShowSnackbar(
+            "Error with invitation workflow. Developer needs to adjust randomized default password"
+          );
+        } else if (errorCode === "auth/operation-not-allowed") {
+          this.handleShowSnackbar(
+            "Error with invitation workflow. Developer needs to look into firebase auth/operation-not-allowed"
+          );
+        } else if (errorCode === "auth/weak-password") {
+          // Should never happen, since randomized password is numeric of length 32
+          this.handleShowSnackbar(
+            "Error with invitation workflow. Developer needs to adjust randomized default password"
+          );
+        } else {
+          this.handleShowSnackbar("Unknown error with invitation workflow.");
+        }
+      });
   }
 
   // When the user clicks on the toggle button, open dialog confirming deletion
@@ -181,6 +241,23 @@ class Settings extends Component {
     );
   }
 
+  handleShowSnackbar(text) {
+    this.setState({
+      snackbarOpen: true,
+      snackbarText: text
+    });
+  }
+
+  handleCloseSnackbar(event, reason) {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    this.setState({
+      snackbarOpen: false
+    });
+  }
+
   // Used to fetch a list of valid email addresses
   fetchUserList() {
     const { loading, users, usersObject } = this.state;
@@ -198,7 +275,7 @@ class Settings extends Component {
 
     const usersListItems = users.map(email => {
       return (
-        <div>
+        <div key={email}>
           <hr />
           <ListItem>
             <ListItemText primary={email.replace(",", ".")} />
@@ -231,7 +308,9 @@ class Settings extends Component {
       openToggle,
       toggleEmail,
       toggleDesiredBool,
-      emailInputWellFormatted
+      emailInputWellFormatted,
+      snackbarOpen,
+      snackbarText
     } = this.state;
     const toggleVerb = toggleDesiredBool ? "enable" : "disable";
     const toggleVerbCaps = toggleDesiredBool ? "Enable" : "Disable";
@@ -329,6 +408,30 @@ class Settings extends Component {
             </DialogActions>
           </Dialog>
         </Grid>
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left"
+          }}
+          open={snackbarOpen}
+          autoHideDuration={8000}
+          onClose={this.handleCloseSnackbar}
+          ContentProps={{
+            "aria-describedby": "snackbar-message"
+          }}
+          message={<span id="snackbar-message">{snackbarText}</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleCloseSnackbar}
+            >
+              <CloseIcon />
+            </IconButton>
+          ]}
+        />
       </div>
     );
   }
