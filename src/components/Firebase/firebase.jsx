@@ -1,4 +1,5 @@
 import app from "firebase/app";
+import "firebase";
 import "firebase/auth";
 import React from "react";
 
@@ -28,6 +29,9 @@ class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
+    this.db = app.database(app);
+    this.user = email => this.db.ref(`users/${email}`);
+    this.users = () => this.db.ref("users/");
   }
 
   setPersistenceLevel = level => {
