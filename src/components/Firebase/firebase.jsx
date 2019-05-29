@@ -30,8 +30,13 @@ class Firebase {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
     this.db = app.database(app);
+
+    // Database references
     this.user = email => this.db.ref(`users/${email}`);
     this.users = () => this.db.ref("users/");
+
+    this.glossary = () => this.db.ref("glossary/");
+    this.glossaryByUid = uid => this.db.ref(`glossary/${uid}`);
   }
 
   setPersistenceLevel = level => {
