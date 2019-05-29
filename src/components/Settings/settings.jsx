@@ -44,15 +44,15 @@ const styles = {
   confirmAdd: {
     textTransform: "none"
   },
-  deleteDialog: {
+  toggleDialog: {
     width: "50%",
     paddingLeft: 25,
     paddingRight: 25
   },
-  cancelDelete: {
+  cancelToggle: {
     textTransform: "none"
   },
-  confirmDelete: {
+  confirmToggle: {
     textTransform: "none"
   }
 };
@@ -69,7 +69,12 @@ class Settings extends Component {
     super(props);
     this.state = {
       openAdd: false,
-      openDelete: false,
+      openToggle: false,
+      toggleEmail: "",
+
+      // The boolean value that enabled will change to, if the
+      // user confirms
+      toggleDesiredBool: false,
       emailInput: "",
       emailInputWellFormatted: false,
       loading: true,
@@ -81,12 +86,11 @@ class Settings extends Component {
     this.handleClickOpenAdd = this.handleClickOpenAdd.bind(this);
     this.handleCloseAdd = this.handleCloseAdd.bind(this);
     this.handleConfirmAdd = this.handleConfirmAdd.bind(this);
-    this.handleClickOpenDelete = this.handleClickOpenDelete.bind(this);
-    this.handleCloseDelete = this.handleCloseDelete.bind(this);
-    this.handleConfirmDelete = this.handleConfirmDelete.bind(this);
+    this.handleClickOpenToggle = this.handleClickOpenToggle.bind(this);
+    this.handleCloseToggle = this.handleCloseToggle.bind(this);
+    this.handleConfirmToggle = this.handleConfirmToggle.bind(this);
 
     this.fetchUserList = this.fetchUserList.bind(this);
-    this.doToggleEnabled = this.doToggleEnabled.bind(this);
     this.writeUserToDb = this.writeUserToDb.bind(this);
   }
 
@@ -148,26 +152,33 @@ class Settings extends Component {
     });
   }
 
-  // When the user clicks on the delete button, open dialog confirming deletion
-  handleClickOpenDelete() {
-    this.setState({
-      openDelete: true
-    });
+  // When the user clicks on the toggle button, open dialog confirming deletion
+  handleClickOpenToggle(email) {
+    return event => {
+      this.setState({
+        openToggle: true,
+        toggleEmail: email,
+        toggleDesiredBool: event.target.checked
+      });
+    };
   }
 
   // Handle the logic when the user closes the dialog confirming deletion
-  handleCloseDelete() {
+  handleCloseToggle() {
     this.setState({
-      openDelete: false
+      openToggle: false
     });
   }
 
-  // Handle the logic when a user deletes an account (Presses Delete in Delete dialog)
-  handleConfirmDelete() {
-    // Add logic here
-    this.setState({
-      openDelete: false
-    });
+  // Handle the logic when a user toggles an account (Presses Toggle in Toggle dialog)
+  handleConfirmToggle() {
+    const { toggleEmail, toggleDesiredBool } = this.state;
+
+    this.writeUserToDb(toggleEmail, toggleDesiredBool).then(
+      this.setState({
+        openToggle: false
+      })
+    );
   }
 
   // Used to fetch a list of valid email addresses
@@ -194,7 +205,7 @@ class Settings extends Component {
             <ListItemSecondaryAction>
               <Switch
                 checked={usersObject[email].enabled}
-                onChange={this.doToggleEnabled(email)}
+                onChange={this.handleClickOpenToggle(email)}
               />
             </ListItemSecondaryAction>
           </ListItem>
@@ -205,23 +216,25 @@ class Settings extends Component {
     return <div>{usersListItems}</div>;
   }
 
-  doToggleEnabled(email) {
-    return event => {
-      this.writeUserToDb(email, event.target.checked);
-    };
-  }
-
   writeUserToDb(email, enabled) {
     const { firebase } = this.props;
 
-    firebase.user(email.replace(".", ",")).set({
+    return firebase.user(email.replace(".", ",")).set({
       enabled
     });
   }
 
   render() {
     const { classes } = this.props;
-    const { openAdd, openDelete, emailInputWellFormatted } = this.state;
+    const {
+      openAdd,
+      openToggle,
+      toggleEmail,
+      toggleDesiredBool,
+      emailInputWellFormatted
+    } = this.state;
+    const toggleVerb = toggleDesiredBool ? "enable" : "disable";
+    const toggleVerbCaps = toggleDesiredBool ? "Enable" : "Disable";
     return (
       <div className={classes.root}>
         <h1 className={classes.title}>Accounts</h1>
@@ -281,29 +294,37 @@ class Settings extends Component {
 
           {/* Remove User Dialog */}
           <Dialog
-            classes={{ paper: classes.deleteDialog }}
-            onClose={this.handleCloseDelete}
-            open={openDelete}
+            classes={{ paper: classes.toggleDialog }}
+            onClose={this.handleCloseToggle}
+            open={openToggle}
             disableBackdropClick
             disableEscapeKeyDown
           >
-            <DialogTitle onClose={this.handleCloseDelete}>Delete</DialogTitle>
-            Are you sure you want to delete this user?
+            <DialogTitle onClose={this.handleCloseToggle}>
+              {toggleVerbCaps} Admin
+            </DialogTitle>
+            Are you sure you want to {toggleVerb} the admin with email{" "}
+            {toggleEmail.replace(",", ".")}?
+            <br />
+            <br />
+            {toggleDesiredBool
+              ? "Enabled admins will be able to modify courtroom and glossary text."
+              : "Disabled admins will not be able to log into the admin dashboard unless you re-enable them."}
             <DialogActions>
               <Button
-                onClick={this.handleCloseDelete}
+                onClick={this.handleCloseToggle}
                 variant="outlined"
-                classes={{ label: classes.cancelDelete }}
+                classes={{ label: classes.cancelToggle }}
               >
                 Cancel
               </Button>
               <Button
                 variant="contained"
-                onClick={this.handleConfirmDelete}
+                onClick={this.handleConfirmToggle}
                 color="secondary"
-                classes={{ label: classes.confirmDelete }}
+                classes={{ label: classes.confirmToggle }}
               >
-                Delete
+                {toggleVerbCaps}
               </Button>
             </DialogActions>
           </Dialog>
