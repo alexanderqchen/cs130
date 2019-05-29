@@ -70,12 +70,11 @@ class Courtroom extends Component {
         const courtroomObject = {};
         const termToUid = {};
 
-        Object.keys(snapshotObject).map(uid => {
+        Object.keys(snapshotObject).forEach(uid => {
           const snapshotEntry = snapshotObject[uid];
           termsList.push(snapshotEntry.term);
           courtroomObject[snapshotEntry.term] = snapshotEntry.definition;
           termToUid[snapshotEntry.term] = uid;
-          return null;
         });
 
         this.setState({

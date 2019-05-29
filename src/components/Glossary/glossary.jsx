@@ -101,12 +101,11 @@ class Glossary extends Component {
         const glossaryObject = {};
         const termToUid = {};
 
-        Object.keys(snapshotObject).map(uid => {
+        Object.keys(snapshotObject).forEach(uid => {
           const snapshotEntry = snapshotObject[uid];
           termsList.push(snapshotEntry.term);
           glossaryObject[snapshotEntry.term] = snapshotEntry.definition;
           termToUid[snapshotEntry.term] = uid;
-          return null;
         });
 
         this.setState({
