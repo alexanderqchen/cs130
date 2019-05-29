@@ -61,7 +61,7 @@ class Glossary extends Component {
       snackbarText: ""
     };
     this.onDefinitionInputChange = this.onDefinitionInputChange.bind(this);
-    this.onKeyInputChange = this.onKeyInputChange.bind(this);
+    this.onTermInputChange = this.onTermInputChange.bind(this);
 
     this.handleClickOpenAdd = this.handleClickOpenAdd.bind(this);
     this.handleCloseAdd = this.handleCloseAdd.bind(this);
@@ -129,7 +129,7 @@ class Glossary extends Component {
     });
   }
 
-  onKeyInputChange(event) {
+  onTermInputChange(event) {
     this.setState({
       termInput: event.target.value
     });
@@ -291,7 +291,7 @@ class Glossary extends Component {
               value={termInput}
               margin="normal"
               variant="outlined"
-              onChange={this.onKeyInputChange}
+              onChange={this.onTermInputChange}
             />
           </FormControl>
           <FormControl>
