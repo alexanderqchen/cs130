@@ -58,6 +58,7 @@ class TermCard extends Component {
   static get propTypes() {
     return {
       term: PropTypes.string.isRequired,
+      isTermEditable: PropTypes.bool.isRequired,
       definition: PropTypes.string.isRequired,
       classes: PropTypes.instanceOf(Object).isRequired,
       edit: PropTypes.bool.isRequired,
@@ -162,7 +163,7 @@ class TermCard extends Component {
   }
 
   render() {
-    const { classes, term, definition, edit, del } = this.props;
+    const { classes, term, isTermEditable, definition, edit, del } = this.props;
     const { termInput, definitionInput, openEdit, openDelete } = this.state;
     return (
       <div className={classes.root}>
@@ -210,6 +211,7 @@ class TermCard extends Component {
           <FormControl>
             <InputLabel shrink>Term</InputLabel>
             <TextField
+              disabled={!isTermEditable}
               value={termInput}
               margin="normal"
               variant="outlined"

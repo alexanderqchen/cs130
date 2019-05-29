@@ -212,6 +212,7 @@ class Glossary extends Component {
       <TermCard
         key={key}
         term={key}
+        isTermEditable
         definition={glossaryObject[key]}
         edit
         del
