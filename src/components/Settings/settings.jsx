@@ -137,13 +137,17 @@ class Settings extends Component {
   // When the user clicks on the add button, open Add dialog
   handleClickOpenAdd() {
     this.setState({
-      openAdd: true
+      openAdd: true,
+      emailInput: "",
+      emailInputWellFormatted: false
     });
   }
 
   // Handle the logic when the user closes the Add dialog
   handleCloseAdd() {
     this.setState({
+      emailInput: "",
+      emailInputWellFormatted: false,
       openAdd: false
     });
   }
@@ -308,6 +312,7 @@ class Settings extends Component {
       openToggle,
       toggleEmail,
       toggleDesiredBool,
+      emailInput,
       emailInputWellFormatted,
       snackbarOpen,
       snackbarText
@@ -347,6 +352,7 @@ class Settings extends Component {
             <FormControl>
               <InputLabel shrink>Email</InputLabel>
               <TextField
+                value={emailInput}
                 margin="normal"
                 variant="outlined"
                 onChange={this.onEmailInputChange}
