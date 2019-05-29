@@ -78,10 +78,12 @@ class TermCard extends Component {
     super(props);
     this.state = {
       definitionInput: props.definition,
+      termInput: props.term,
       openEdit: false,
       openDelete: false
     };
     this.onDefinitionInputChange = this.onDefinitionInputChange.bind(this);
+    this.onTermInputChange = this.onTermInputChange.bind(this);
 
     this.handleClickOpenEdit = this.handleClickOpenEdit.bind(this);
     this.handleCloseEdit = this.handleCloseEdit.bind(this);
@@ -97,10 +99,17 @@ class TermCard extends Component {
     });
   }
 
+  onTermInputChange(event) {
+    this.setState({
+      termInput: event.target.value
+    });
+  }
+
   // When the user clicks on the edit button, open Edit dialog
   handleClickOpenEdit() {
-    const { definition } = this.props;
+    const { term, definition } = this.props;
     this.setState({
+      termInput: term,
       definitionInput: definition,
       openEdit: true
     });
@@ -108,8 +117,9 @@ class TermCard extends Component {
 
   // Handle the logic when the user closes the Edit dialog
   handleCloseEdit() {
-    const { definition } = this.props;
+    const { term, definition } = this.props;
     this.setState({
+      termInput: term,
       definitionInput: definition,
       openEdit: false
     });
@@ -118,9 +128,9 @@ class TermCard extends Component {
   // Handle the logic when the user saves the edits
   handleConfirmEdit() {
     const { term, editTermToDb } = this.props;
-    const { definitionInput } = this.state;
+    const { termInput, definitionInput } = this.state;
 
-    editTermToDb(term, definitionInput).then(() => {
+    editTermToDb(term, termInput, definitionInput).then(() => {
       this.setState({
         openEdit: false
       });
@@ -153,7 +163,7 @@ class TermCard extends Component {
 
   render() {
     const { classes, term, definition, edit, del } = this.props;
-    const { definitionInput, openEdit, openDelete } = this.state;
+    const { termInput, definitionInput, openEdit, openDelete } = this.state;
     return (
       <div className={classes.root}>
         <Grid container>
@@ -200,10 +210,10 @@ class TermCard extends Component {
           <FormControl>
             <InputLabel shrink>Term</InputLabel>
             <TextField
-              value={term}
-              disabled
+              value={termInput}
               margin="normal"
               variant="outlined"
+              onChange={this.onTermInputChange}
             />
           </FormControl>
           <FormControl>

@@ -235,18 +235,18 @@ class Glossary extends Component {
       });
   }
 
-  editTermToDb(term, definition) {
+  editTermToDb(termOriginal, termNew, definitionNew) {
     const { firebase } = this.props;
     const { glossaryTermToUid } = this.state;
 
     return firebase
-      .glossaryByUid(glossaryTermToUid[term])
+      .glossaryByUid(glossaryTermToUid[termOriginal])
       .set({
-        term,
-        definition
+        term: termNew,
+        definition: definitionNew
       })
       .then(() => {
-        this.handleShowSnackbar(`Term '${term}' successfully edited`);
+        this.handleShowSnackbar(`Term '${termOriginal}' successfully edited`);
       });
   }
 
