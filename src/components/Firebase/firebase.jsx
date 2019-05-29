@@ -37,6 +37,9 @@ class Firebase {
 
     this.glossary = () => this.db.ref("glossary/");
     this.glossaryByUid = uid => this.db.ref(`glossary/${uid}`);
+
+    this.courtroom = () => this.db.ref("courtroom/");
+    this.courtroomByUid = uid => this.db.ref(`courtroom/${uid}`);
   }
 
   setPersistenceLevel = level => {
