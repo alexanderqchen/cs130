@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import Courtroom from "../Courtroom/courtroom";
 import Glossary from "../Glossary/glossary";
 import Settings from "../Settings/settings";
+import SignOutButton from "../SignOut/signOut";
 import withAuthorization from "../Session/withAuthorization";
 
 const styles = {
@@ -50,6 +51,7 @@ class Admin extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.header}>
+          <SignOutButton />
           <h1 className={classes.title}>Admin Dashboard</h1>
           <Tabs
             value={value}
@@ -70,4 +72,4 @@ class Admin extends Component {
   }
 }
 
-export default withStyles(styles)(withAuthorization(Admin));
+export default withStyles(styles)(withAuthorization(Admin)(false));
