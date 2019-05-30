@@ -7,7 +7,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
+import ClearIcon from "@material-ui/icons/Clear";
+import { Grid } from "@material-ui/core";
 import withAuthorization from "../Session/withAuthorization";
+import Firebase, { withFirebase } from "../Firebase/firebase";
 
 const useStyles = makeStyles(theme => ({
   "@global": {
@@ -27,6 +30,16 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 3)
+  },
+  header: {
+    paddingLeft: 10,
+    backgroundColor: "#eeeeee",
+    paddingTop: 10,
+    paddingBottom: 5,
+    paddingRight: 10
+  },
+  button: {
+    borderRadius: 50
   }
 }));
 
@@ -45,7 +58,8 @@ class PasswordForgetFormBase extends Component {
     return {
       onClose: PropTypes.func.isRequired,
       open: PropTypes.bool.isRequired,
-      classes: PropTypes.instanceOf(Object).isRequired
+      classes: PropTypes.instanceOf(Object).isRequired,
+      firebase: PropTypes.instanceOf(Firebase).isRequired
     };
   }
 
@@ -53,12 +67,28 @@ class PasswordForgetFormBase extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  onSubmit = event => {
+    const { email } = this.state;
+    const { firebase, onClose } = this.props;
+
+    firebase
+      .doPasswordReset(email)
+      .then(() => {
+        this.setState({ ...INITIAL_STATE });
+        onClose();
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+    event.preventDefault();
+  };
+
   render() {
     const { onClose, open, classes } = this.props;
     const handleClose = () => {
       onClose();
     };
-    const { email } = this.state;
+    const { email, error } = this.state;
     const isInvalid = email === "";
 
     return (
@@ -68,11 +98,27 @@ class PasswordForgetFormBase extends Component {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
+        <div className={classes.header}>
+          <Grid container justify="space-between" spacing={24}>
+            <Grid item>
+              <Typography component="h1" variant="h5">
+                Forgot Password
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="secondary"
+                className={classes.button}
+                onClick={handleClose}
+              >
+                <ClearIcon />
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
-          <Typography component="h1" variant="h5">
-            Forgot Password
-          </Typography>
           <div className={classes.paper}>
             <Typography component="h1" variant="body2">
               Please enter the email address linked to your account
@@ -103,7 +149,7 @@ class PasswordForgetFormBase extends Component {
                 Find Account
               </Button>
 
-              {/* {error && <p>{error.message}</p>} */}
+              {error && <p>{error.message}</p>}
             </form>
           </div>
         </Container>
@@ -112,7 +158,9 @@ class PasswordForgetFormBase extends Component {
   }
 }
 
-const PasswordForgetForm = withAuthorization(PasswordForgetFormBase)(true);
+const PasswordForgetForm = withFirebase(
+  withAuthorization(PasswordForgetFormBase)(true)
+);
 
 function PasswordForget(props) {
   const classes = useStyles();

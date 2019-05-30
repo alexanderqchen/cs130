@@ -152,9 +152,15 @@ class SignInFormBase extends Component {
               >
                 Sign In
               </Button>
+              <Button
+                onClick={handleForgetPwClick}
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                Forgot password
+              </Button>
               {error && <p>{error.message}</p>}
-
-              <Button onClick={handleForgetPwClick}>Forgot password?</Button>
             </form>
           </div>
           <Box mt={5} />
