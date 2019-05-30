@@ -39,11 +39,11 @@ const useStyles = makeStyles(theme => ({
 
 function MySnackbarContentWrapper(props) {
   const classes = useStyles();
-  const { className, message, onClose, ...other } = props;
+  const { message, onClose, ...other } = props;
 
   return (
     <SnackbarContent
-      className={clsx(classes.success, className)}
+      className={classes.success}
       aria-describedby="client-snackbar"
       message={
         <span id="client-snackbar" className={classes.message}>
@@ -69,10 +69,8 @@ function MySnackbarContentWrapper(props) {
 }
 
 MySnackbarContentWrapper.propTypes = {
-  className: PropTypes.string.isRequired,
   message: PropTypes.node.isRequired,
-  onClose: PropTypes.func.isRequired,
-  variant: PropTypes.oneOf(["success", "warning", "error", "info"]).isRequired
+  onClose: PropTypes.func.isRequired
 };
 
 class Landing extends Component {
@@ -127,10 +125,10 @@ class Landing extends Component {
         >
           <MySnackbarContentWrapper
             onClose={this.handleSnackbarClose}
-            message="A password email has been sent."
+            message="A password reset email has been sent."
           />
         </Snackbar>
-        <Grid container justify="space-between" spacing={24}>
+        <Grid container justify="space-between">
           <Grid item />
           <Grid item>
             <Button

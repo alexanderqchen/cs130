@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 const SignOutButton = ({ firebase }) => {
   const classes = useStyles();
   return (
-    <Grid container justify="space-between" spacing={24}>
+    <Grid container justify="space-between">
       <Grid item />
       <Grid item>
         <Button

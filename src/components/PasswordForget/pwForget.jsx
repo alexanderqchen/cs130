@@ -99,7 +99,7 @@ class PasswordForgetFormBase extends Component {
         aria-describedby="alert-dialog-description"
       >
         <div className={classes.header}>
-          <Grid container justify="space-between" spacing={24}>
+          <Grid container justify="space-between">
             <Grid item>
               <Typography component="h1" variant="h5">
                 Forgot Password
