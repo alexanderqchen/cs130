@@ -75,7 +75,7 @@ class PasswordForgetFormBase extends Component {
       .doPasswordReset(email)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
-        onClose();
+        onClose(true);
       })
       .catch(error => {
         this.setState({ error });
@@ -86,7 +86,7 @@ class PasswordForgetFormBase extends Component {
   render() {
     const { onClose, open, classes } = this.props;
     const handleClose = () => {
-      onClose();
+      onClose(false);
     };
     const { email, error } = this.state;
     const isInvalid = email === "";
