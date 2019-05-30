@@ -1,4 +1,5 @@
 import app from "firebase/app";
+import "firebase";
 import "firebase/auth";
 import React from "react";
 
@@ -12,10 +13,33 @@ const firebaseConfig = {
   appId: "1:534972309583:web:781893fc117a5095"
 };
 
+/*
+Generates a random password of 32 alphanumeric chars.
+Used as the user's default password, which will never be given
+to the user. The user will need to follow firebase's "Reset password"
+workflow to create a real password
+ */
+function getRandomPassword() {
+  return Math.random()
+    .toString(36)
+    .slice(-16);
+}
+
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
+    this.db = app.database(app);
+
+    // Database references
+    this.user = email => this.db.ref(`users/${email}`);
+    this.users = () => this.db.ref("users/");
+
+    this.glossary = () => this.db.ref("glossary/");
+    this.glossaryByUid = uid => this.db.ref(`glossary/${uid}`);
+
+    this.courtroom = () => this.db.ref("courtroom/");
+    this.courtroomByUid = uid => this.db.ref(`courtroom/${uid}`);
   }
 
   setPersistenceLevel = level => {
@@ -26,6 +50,10 @@ class Firebase {
     this.auth.signInWithEmailAndPassword(email, password);
 
   doSignOut = () => this.auth.signOut();
+
+  // Create user with specified email, and a random 32-length alphanumeric password
+  doCreateNewUser = email =>
+    this.auth.createUserWithEmailAndPassword(email, getRandomPassword());
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
