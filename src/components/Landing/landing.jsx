@@ -127,7 +127,7 @@ class Landing extends Component {
         >
           <MySnackbarContentWrapper
             onClose={this.handleSnackbarClose}
-            message="Your reset email is successfully sent"
+            message="A password email has been sent."
           />
         </Snackbar>
         <Grid container justify="space-between" spacing={24}>
