@@ -87,8 +87,9 @@ class Settings extends Component {
       snackbarOpen: false,
       snackbarText: "",
       loading: true,
-      users: null,
-      usersObject: null
+      emailList,
+      emailToEnabled: null,
+      emailToUid,
     };
     this.onEmailInputChange = this.onEmailInputChange.bind(this);
 
@@ -101,7 +102,7 @@ class Settings extends Component {
     this.handleShowSnackbar = this.handleShowSnackbar.bind(this);
     this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
 
-    this.fetchUserList = this.fetchUserList.bind(this);
+    this.buildUserListItems = this.buildUserListItems.bind(this);
     this.writeUserToDb = this.writeUserToDb.bind(this);
   }
 
@@ -112,20 +113,44 @@ class Settings extends Component {
     });
 
     firebase.users().on("value", snapshot => {
-      const usersObject = snapshot.val();
+      /*
+      {
+        uid1: {
+          email: email@ucla.edu,
+          enabled: true
+        },
+        uid2: {
+          email: j@ucla.edu,
+          enabled: false
+        }
+      }
+      */
+      const snapshotObject = snapshot.val();
 
-      if (usersObject) {
-        const usersList = Object.keys(usersObject);
+      if (snapshotObject) {
+        const emailList = new Array(0);
+        const emailToEnabled = {};
+        const emailToUid = {};
+
+        Object.keys(snapshotObject).forEach(uid => {
+          const snapshotEntry = snapshotObject[uid];
+          emailList.push(snapshotEntry.email);
+          emailToEnabled[snapshotEntry.email] = snapshotEntry.enabled;
+          emailToUid[snapshotEntry.email] = uid;
+        });
 
         this.setState({
-          users: usersList,
-          usersObject,
+          emailList,
+          emailToEnabled,
+          emailToUid,
           loading: false
         });
+
         return;
       }
 
-      this.setState({ users: null, loading: false });
+      this.setState({ emailList: new Array(0), loading: false });
+
     });
   }
 
@@ -160,10 +185,10 @@ class Settings extends Component {
   // Handle the logic when a user adds an account (Presses Add in Add dialog)
   handleConfirmAdd() {
     const { firebase } = this.props;
-    const { emailInput, users } = this.state;
+    const { emailInput, emailList } = this.state;
 
     // If user already exists, do not allow the add
-    if (users.indexOf(emailInput.replace(".", ",")) !== -1) {
+    if (emailList.indexOf(emailInput) !== -1) {
       this.handleShowSnackbar("Admin with this email already exists");
       return;
     }
@@ -180,12 +205,7 @@ class Settings extends Component {
         });
       })
       .then(() => {
-        this.handleShowSnackbar(
-          `Successfully invited admin with email ${emailInput.replace(
-            ",",
-            "."
-          )}`
-        );
+        this.handleShowSnackbar(`Successfully invited admin with email ${emailInput}`);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -268,29 +288,29 @@ class Settings extends Component {
   }
 
   // Used to fetch a list of valid email addresses
-  fetchUserList() {
-    const { loading, users, usersObject } = this.state;
+  buildUserListItems() {
+    const { loading, emailList, emailToEnabled } = this.state;
     if (loading) {
       return <div>Loading list of admins</div>;
     }
 
-    if (!users) {
+    if (!emailList) {
       return <div>Unable to load list of admins</div>;
     }
 
-    if (users.length === 0) {
+    if (emailList.length === 0) {
       return <div>No admins found</div>;
     }
 
-    const usersListItems = users.map(email => {
+    const emailListItems = emailList.map(email => {
       return (
         <div key={email}>
           <hr />
           <ListItem>
-            <ListItemText primary={email.replace(",", ".")} />
+            <ListItemText primary={email} />
             <ListItemSecondaryAction>
               <Switch
-                checked={usersObject[email].enabled}
+                checked={emailToEnabled[email]}
                 onChange={this.handleClickOpenToggle(email)}
               />
             </ListItemSecondaryAction>
@@ -299,14 +319,15 @@ class Settings extends Component {
       );
     });
 
-    return <div>{usersListItems}</div>;
+    return <div>{emailListItems}</div>;
   }
 
   writeUserToDb(email, enabled) {
     const { firebase } = this.props;
 
-    return firebase.user(email.replace(".", ",")).set({
-      enabled
+    return firebase.user().push({
+      email: email,
+      enabled: enabled,
     });
   }
 
@@ -338,7 +359,7 @@ class Settings extends Component {
         <Grid container>
           <Grid item xs={4}>
             <div className={classes.emailList}>
-              <List>{this.fetchUserList()}</List>
+              <List>{this.buildUserListItems()}</List>
             </div>
           </Grid>
           <Grid item xs={4} />
@@ -395,7 +416,7 @@ class Settings extends Component {
               {toggleVerbCaps} Admin
             </DialogTitle>
             Are you sure you want to {toggleVerb} the admin with email{" "}
-            {toggleEmail.replace(",", ".")}?
+            {toggleEmail}?
             <br />
             <br />
             {toggleDesiredBool

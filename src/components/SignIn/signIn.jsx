@@ -46,8 +46,9 @@ const useStyles = makeStyles(theme => ({
 const INITIAL_STATE = {
   email: "",
   password: "",
-  users: null,
-  usersObject: null,
+  emailList: null,
+  emailToEnabled: null,
+  emailToUid: null,
   error: null
 };
 
@@ -71,19 +72,43 @@ class SignInFormBase extends Component {
     const { firebase } = this.props;
 
     firebase.users().on("value", snapshot => {
-      const usersObject = snapshot.val();
+      /*
+      {
+        uid1: {
+          email: email@ucla.edu,
+          enabled: true
+        },
+        uid2: {
+          email: j@ucla.edu,
+          enabled: false
+        }
+      }
+      */
+      const snapshotObject = snapshot.val();
 
-      if (usersObject) {
-        const usersList = Object.keys(usersObject);
+      if (snapshotObject) {
+        const emailList = new Array(0);
+        const emailToEnabled = {};
+        const emailToUid = {};
+
+        Object.keys(snapshotObject).forEach(uid => {
+          const snapshotEntry = snapshotObject[uid];
+          emailList.push(snapshotEntry.email);
+          emailToEnabled[snapshotEntry.email] = snapshotEntry.enabled;
+          emailToUid[snapshotEntry.email] = uid;
+        });
 
         this.setState({
-          users: usersList,
-          usersObject
+          emailList,
+          emailToEnabled,
+          emailToUid,
         });
+
         return;
       }
 
-      this.setState({ users: null });
+      this.setState({ emailList: new Array(0)});
+
     });
   }
 
@@ -93,13 +118,10 @@ class SignInFormBase extends Component {
     // they can see the error message
     event.preventDefault();
 
-    const { email, password, users, usersObject } = this.state;
+    const { email, password, emailList, emailToEnabled } = this.state;
     const { firebase, history } = this.props;
 
-    // Key into the data from firebase
-    const emailKey = email.replace(".", ",");
-
-    if (!users) {
+    if (!emailList) {
       this.setState({
         error: new Error("Unable to fetch firebase user list")
       });
@@ -107,7 +129,7 @@ class SignInFormBase extends Component {
     }
 
     // If user is not in auth DB
-    if (users.indexOf(emailKey) === -1) {
+    if (emailList.indexOf(email) === -1) {
       this.setState({
         error: new Error(
           "Not authorized. This email does not have an admin account."
@@ -117,7 +139,7 @@ class SignInFormBase extends Component {
     }
 
     // User is in the auth DB, but they have been disabled
-    if (!usersObject[emailKey].enabled) {
+    if (!emailToEnabled[email]) {
       this.setState({
         error: new Error(
           "Not authorized. The admin account associated with this email has been disabled. Contact your manager to have it re-enabled."
