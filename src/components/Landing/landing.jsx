@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     minHeight: "100%",
     minWidth: "100%",
-    opacity: 0.8
+    filter: "brightness(50%)"
   },
   buttonFloatTopRight: {
     backgroundColor: "white",
@@ -58,7 +58,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: "4vw",
     color: "white",
     zIndex: 1000,
-    fontFamily: "Arial"
+    fontFamily: "Arial",
+    fontWeight: "bold",
+    letterSpacing: 0
   }
 }));
 
