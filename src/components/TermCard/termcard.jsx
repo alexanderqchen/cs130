@@ -25,9 +25,9 @@ const styles = {
     margin: 10
   },
   buttonGrid: {
-    padding: 15,
-    margin: 15,
-    display: "block"
+    display: "block",
+    textAlign: "center",
+    position: "relative"
   },
   button: {
     display: "inline-block"
@@ -53,6 +53,12 @@ const styles = {
   },
   confirmDelete: {
     textTransform: "none"
+  },
+  hr: {
+    margin: 0
+  },
+  row: {
+    minHeight: "100px"
   }
 };
 
@@ -170,7 +176,7 @@ class TermCard extends Component {
     const { termInput, definitionInput, openEdit, openDelete } = this.state;
     return (
       <div className={classes.root}>
-        <Grid container justify="space-between">
+        <Grid container justify="space-between" className={classes.row}>
           <Grid item xs={2}>
             <p className={classes.term}>{term}</p>
           </Grid>
@@ -202,7 +208,7 @@ class TermCard extends Component {
             ) : null}
           </Grid>
         </Grid>
-        <hr />
+        <hr className={classes.hr} />
 
         {/* Dialog for Edit Button */}
         <Dialog

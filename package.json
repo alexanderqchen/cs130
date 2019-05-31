@@ -50,7 +50,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run prettier",
       "pre-push": "yarn run lint"
     }
   }
