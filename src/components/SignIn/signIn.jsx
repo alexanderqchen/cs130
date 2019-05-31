@@ -46,6 +46,8 @@ const useStyles = makeStyles(theme => ({
 const INITIAL_STATE = {
   email: "",
   password: "",
+  users: null,
+  usersObject: null,
   error: null
 };
 
@@ -65,9 +67,64 @@ class SignInFormBase extends Component {
     };
   }
 
+  componentDidMount() {
+    const { firebase } = this.props;
+
+    firebase.users().on("value", snapshot => {
+      const usersObject = snapshot.val();
+
+      if (usersObject) {
+        const usersList = Object.keys(usersObject);
+
+        this.setState({
+          users: usersList,
+          usersObject
+        });
+        return;
+      }
+
+      this.setState({ users: null });
+    });
+  }
+
   onSubmit = event => {
-    const { email, password } = this.state;
+    // Prevent default behavior for submit, so that when a user
+    // is not authorized, the sign-in modal does not close, and
+    // they can see the error message
+    event.preventDefault();
+
+    const { email, password, users, usersObject } = this.state;
     const { firebase, history } = this.props;
+
+    // Key into the data from firebase
+    const emailKey = email.replace(".", ",");
+
+    if (!users) {
+      this.setState({
+        error: new Error("Unable to fetch firebase user list")
+      });
+      return;
+    }
+
+    // If user is not in auth DB
+    if (users.indexOf(emailKey) === -1) {
+      this.setState({
+        error: new Error(
+          "Not authorized. This email does not have an admin account."
+        )
+      });
+      return;
+    }
+
+    // User is in the auth DB, but they have been disabled
+    if (!usersObject[emailKey].enabled) {
+      this.setState({
+        error: new Error(
+          "Not authorized. The admin account associated with this email has been disabled. Contact your manager to have it re-enabled."
+        )
+      });
+      return;
+    }
 
     firebase
       .setPersistenceLevel(PERSLEVEL.LOCAL)
@@ -79,11 +136,13 @@ class SignInFormBase extends Component {
       .catch(error => {
         this.setState({ error });
       });
-    event.preventDefault();
   };
 
-  onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+  onInputChange = event => {
+    this.setState({
+      error: null,
+      [event.target.name]: event.target.value
+    });
   };
 
   render() {
@@ -125,7 +184,7 @@ class SignInFormBase extends Component {
                 name="email"
                 autoComplete="email"
                 value={email}
-                onChange={this.onChange}
+                onChange={this.onInputChange}
                 autoFocus
               />
               <TextField
@@ -139,7 +198,7 @@ class SignInFormBase extends Component {
                 id="password"
                 autoComplete="current-password"
                 value={password}
-                onChange={this.onChange}
+                onChange={this.onInputChange}
               />
 
               <Button
