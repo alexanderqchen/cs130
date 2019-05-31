@@ -23,7 +23,6 @@ import "typeface-roboto";
 // TODOs:
 // Color the add button differently
 // Add dialog is partially styled
-// Add button should be positioned absolute bottom right
 const styles = {
   root: {
     padding: 30
@@ -55,6 +54,12 @@ const styles = {
   },
   confirmToggle: {
     textTransform: "none"
+  },
+  floatingActionButton: {
+    margin: 0,
+    right: 20,
+    bottom: 20,
+    position: "fixed"
   }
 };
 
@@ -321,6 +326,14 @@ class Settings extends Component {
     const toggleVerbCaps = toggleDesiredBool ? "Enable" : "Disable";
     return (
       <div className={classes.root}>
+        <Fab
+          style={styles.floatingActionButton}
+          color="secondary"
+          aria-label="Add"
+          onClick={this.handleClickOpenAdd}
+        >
+          <AddIcon />
+        </Fab>
         <h1 className={classes.title}>Accounts</h1>
         <Grid container>
           <Grid item xs={4}>
@@ -330,13 +343,6 @@ class Settings extends Component {
           </Grid>
           <Grid item xs={4} />
           <Grid item xs={4} />
-          <Fab
-            color="primary"
-            aria-label="Add"
-            onClick={this.handleClickOpenAdd}
-          >
-            <AddIcon />
-          </Fab>
 
           {/* Add User Dialog */}
           <Dialog
