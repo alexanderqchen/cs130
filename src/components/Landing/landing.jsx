@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import green from "@material-ui/core/colors/green";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -13,6 +12,7 @@ import SnackbarContent from "@material-ui/core/SnackbarContent";
 import PasswordForgetForm from "../PasswordForget/pwForget";
 import withAuthorization from "../Session/withAuthorization";
 import SignInForm from "../SignIn/signIn";
+import HeroImage from "../../images/JuvenileJusticeHeroImage.jpg";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -34,6 +34,31 @@ const useStyles = makeStyles(theme => ({
   iconVariant: {
     opacity: 0.9,
     marginRight: theme.spacing(1)
+  },
+  fillScreen: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    minHeight: "100%",
+    minWidth: "100%",
+    opacity: 0.75
+  },
+  buttonFloatTopRight: {
+    backgroundColor: "white",
+    margin: 0,
+    right: 20,
+    top: 20,
+    position: "fixed"
+  },
+  centerText: {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
+    fontSize: "4vw",
+    color: "white",
+    zIndex: 1000,
+    fontFamily: "Arial"
   }
 }));
 
@@ -128,19 +153,19 @@ class Landing extends Component {
             message="A password reset email has been sent."
           />
         </Snackbar>
-        <Grid container justify="space-between">
-          <Grid item />
-          <Grid item>
-            <Button
-              variant="outlined"
-              color="secondary"
-              className={classes.button}
-              onClick={this.handleClickOpen}
-            >
-              Login
-            </Button>
-          </Grid>
-        </Grid>
+
+        <img alt="Hero" src={HeroImage} className={classes.fillScreen} />
+        <div className={classes.centerText}>test</div>
+
+        <Button
+          variant="outlined"
+          color="secondary"
+          className={clsx(classes.button, classes.buttonFloatTopRight)}
+          onClick={this.handleClickOpen}
+        >
+          Login
+        </Button>
+
         <SignInForm open={signInOpen} onClose={this.handleClose} />
         <PasswordForgetForm open={forgetPwOpen} onClose={this.handlePwClose} />
       </div>

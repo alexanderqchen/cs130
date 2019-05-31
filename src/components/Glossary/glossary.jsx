@@ -19,7 +19,6 @@ import "typeface-roboto";
 // TODOs:
 // Color the add button differently
 // Add dialog is partially styled
-// Add button should be positioned absolute bottom right
 const styles = {
   root: {
     overflow: "scroll"
@@ -34,6 +33,12 @@ const styles = {
   },
   confirmAdd: {
     textTransform: "none"
+  },
+  floatingActionButton: {
+    margin: 0,
+    right: 20,
+    bottom: 20,
+    position: "fixed"
   }
 };
 
@@ -272,7 +277,12 @@ class Glossary extends Component {
       <div className={classes.root}>
         {this.fetchGlossaryTermList()}
 
-        <Fab color="primary" aria-label="Add" onClick={this.handleClickOpenAdd}>
+        <Fab
+          style={styles.floatingActionButton}
+          color="secondary"
+          aria-label="Add"
+          onClick={this.handleClickOpenAdd}
+        >
           <AddIcon />
         </Fab>
 
