@@ -24,10 +24,13 @@ const styles = {
     display: "block",
     margin: 10
   },
-  buttons: {
+  buttonGrid: {
     padding: 15,
     margin: 15,
     display: "block"
+  },
+  button: {
+    display: "inline-block"
   },
   editDialog: {
     width: "50%",
@@ -167,16 +170,17 @@ class TermCard extends Component {
     const { termInput, definitionInput, openEdit, openDelete } = this.state;
     return (
       <div className={classes.root}>
-        <Grid container>
-          <Grid item xs={3}>
+        <Grid container justify="space-between">
+          <Grid item xs={2}>
             <p className={classes.term}>{term}</p>
           </Grid>
           <Grid item xs={6}>
             <p className={classes.definition}>{definition}</p>
           </Grid>
-          <Grid item xs={3} className={classes.buttons}>
+          <Grid item xs={3} className={classes.buttonGrid}>
             {edit ? (
               <Fab
+                className={classes.button}
                 color="primary"
                 aria-label="Edit"
                 classes={{ root: classes.buttonIcon }}
@@ -187,6 +191,7 @@ class TermCard extends Component {
             ) : null}
             {del ? (
               <Fab
+                className={classes.button}
                 color="primary"
                 aria-label="Delete"
                 classes={{ root: classes.buttonIcon }}
