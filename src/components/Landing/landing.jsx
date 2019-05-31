@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     minHeight: "100%",
     minWidth: "100%",
-    opacity: 0.75
+    opacity: 0.8
   },
   buttonFloatTopRight: {
     backgroundColor: "white",
@@ -155,7 +155,7 @@ class Landing extends Component {
         </Snackbar>
 
         <img alt="Hero" src={HeroImage} className={classes.fillScreen} />
-        <div className={classes.centerText}>test</div>
+        <div className={classes.centerText}>Juvenile Justice Dashboard</div>
 
         <Button
           variant="outlined"
