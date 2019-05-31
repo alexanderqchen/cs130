@@ -60,7 +60,8 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1000,
     fontFamily: "Arial",
     fontWeight: "bold",
-    letterSpacing: 0
+    letterSpacing: 0,
+    lineHeight: "5vw"
   }
 }));
 

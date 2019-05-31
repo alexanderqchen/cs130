@@ -12,11 +12,6 @@ code {
     monospace;
 }
 
-.MuiDialog-paper {
-  padding: 25px;
-  width: 30vw !important;
-}
-
 .MuiDialogTitle-root {
   padding: 16px 0 !important;
 }

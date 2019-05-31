@@ -39,7 +39,8 @@ const useStyles = makeStyles(theme => ({
     paddingRight: 10
   },
   button: {
-    borderRadius: 50
+    borderRadius: 50,
+    height: 30
   }
 }));
 
