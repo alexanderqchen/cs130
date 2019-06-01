@@ -87,9 +87,9 @@ class Settings extends Component {
       snackbarOpen: false,
       snackbarText: "",
       loading: true,
-      emailList,
+      emailList: null,
       emailToEnabled: null,
-      emailToUid,
+      emailToUid: null
     };
     this.onEmailInputChange = this.onEmailInputChange.bind(this);
 
@@ -150,7 +150,6 @@ class Settings extends Component {
       }
 
       this.setState({ emailList: new Array(0), loading: false });
-
     });
   }
 
@@ -205,7 +204,9 @@ class Settings extends Component {
         });
       })
       .then(() => {
-        this.handleShowSnackbar(`Successfully invited admin with email ${emailInput}`);
+        this.handleShowSnackbar(
+          `Successfully invited admin with email ${emailInput}`
+        );
       })
       .catch(error => {
         const errorCode = error.code;
@@ -324,10 +325,21 @@ class Settings extends Component {
 
   writeUserToDb(email, enabled) {
     const { firebase } = this.props;
+    const { emailList, emailToUid } = this.state;
 
-    return firebase.user().push({
-      email: email,
-      enabled: enabled,
+    if (emailList.indexOf(email) === -1) {
+      // This is a new user. We must push a new node to the firebase
+      // realtime DB
+      return firebase.users().push({
+        email,
+        enabled
+      });
+    }
+
+    // else, this user already exists. We are simply changing their enabled status
+    return firebase.usersByUid(emailToUid[email]).set({
+      email,
+      enabled
     });
   }
 

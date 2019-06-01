@@ -48,7 +48,6 @@ const INITIAL_STATE = {
   password: "",
   emailList: null,
   emailToEnabled: null,
-  emailToUid: null,
   error: null
 };
 
@@ -89,26 +88,22 @@ class SignInFormBase extends Component {
       if (snapshotObject) {
         const emailList = new Array(0);
         const emailToEnabled = {};
-        const emailToUid = {};
 
         Object.keys(snapshotObject).forEach(uid => {
           const snapshotEntry = snapshotObject[uid];
           emailList.push(snapshotEntry.email);
           emailToEnabled[snapshotEntry.email] = snapshotEntry.enabled;
-          emailToUid[snapshotEntry.email] = uid;
         });
 
         this.setState({
           emailList,
-          emailToEnabled,
-          emailToUid,
+          emailToEnabled
         });
 
         return;
       }
 
-      this.setState({ emailList: new Array(0)});
-
+      this.setState({ emailList: new Array(0) });
     });
   }
 

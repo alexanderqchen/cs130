@@ -32,8 +32,8 @@ class Firebase {
     this.db = app.database(app);
 
     // Database references
-    this.user = email => this.db.ref(`users/${email}`);
     this.users = () => this.db.ref("users/");
+    this.usersByUid = uid => this.db.ref(`users/${uid}`);
 
     this.glossary = () => this.db.ref("glossary/");
     this.glossaryByUid = uid => this.db.ref(`glossary/${uid}`);
