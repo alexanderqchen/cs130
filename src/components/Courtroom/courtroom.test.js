@@ -2,14 +2,21 @@ import { shallow, configure } from "enzyme";
 import React from "react";
 import Adapter from "enzyme-adapter-react-16";
 
-import Admin from "./admin";
+import Courtroom from "./courtroom";
 
 configure({ adapter: new Adapter() });
 
-describe("Admin", () => {
+jest.mock("./courtroom");
+
+beforeEach(() => {
+  // Clear all instances and calls to constructor and all methods:
+  Courtroom.mockClear();
+});
+
+describe("Courtroom", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Admin />);
+    wrapper = shallow(<Courtroom />);
   });
 
   it("wrapper exists", () => {
@@ -18,9 +25,5 @@ describe("Admin", () => {
 
   it("renders as expected", () => {
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it("is a withRouter", () => {
-    expect(wrapper.exists("withRouter()")).toBe(true);
   });
 });

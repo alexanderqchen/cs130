@@ -2,14 +2,14 @@ import { shallow, configure } from "enzyme";
 import React from "react";
 import Adapter from "enzyme-adapter-react-16";
 
-import Admin from "./admin";
+import Settings from "./settings";
 
 configure({ adapter: new Adapter() });
 
-describe("Admin", () => {
+describe("Settings", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Admin />);
+    wrapper = shallow(<Settings />);
   });
 
   it("wrapper exists", () => {
@@ -18,9 +18,5 @@ describe("Admin", () => {
 
   it("renders as expected", () => {
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it("is a withRouter", () => {
-    expect(wrapper.exists("withRouter()")).toBe(true);
   });
 });
