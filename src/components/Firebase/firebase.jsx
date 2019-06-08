@@ -14,15 +14,15 @@ const firebaseConfig = {
 };
 
 /*
-Generates a random password of 32 alphanumeric chars.
+Generates a random password of 12 alphanumeric chars.
 Used as the user's default password, which will never be given
 to the user. The user will need to follow firebase's "Reset password"
 workflow to create a real password
  */
-function getRandomPassword() {
+export function getRandomPassword() {
   return Math.random()
     .toString(36)
-    .slice(-16);
+    .slice(0, 12);
 }
 
 class Firebase {

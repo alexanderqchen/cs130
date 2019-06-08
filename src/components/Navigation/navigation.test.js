@@ -2,14 +2,14 @@ import { shallow, configure } from "enzyme";
 import React from "react";
 import Adapter from "enzyme-adapter-react-16";
 
-import Courtroom from "./courtroom";
+import Navigation from "./navigation";
 
 configure({ adapter: new Adapter() });
 
-describe("Courtroom", () => {
+describe("Navigation", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Courtroom />);
+    wrapper = shallow(<Navigation />);
   });
 
   it("wrapper exists", () => {
@@ -18,5 +18,9 @@ describe("Courtroom", () => {
 
   it("renders as expected", () => {
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it("contains a AuthUserContext.Consumer", () => {
+    expect(wrapper.children().find("ContextConsumer")).toHaveLength(1);
   });
 });
