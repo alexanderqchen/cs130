@@ -14,7 +14,7 @@ import withAuthorization from "../Session/withAuthorization";
 import SignInForm from "../SignIn/signIn";
 import HeroImage from "../../images/JuvenileJusticeHeroImage.jpg";
 
-const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
   },
@@ -177,7 +177,7 @@ class Landing extends Component {
 
 const LandingPage = withAuthorization(Landing)(true);
 
-function LandingExport() {
+export function LandingExport() {
   const classes = useStyles();
   return <LandingPage classes={classes} />;
 }
