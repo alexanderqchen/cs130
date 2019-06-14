@@ -85,6 +85,8 @@ We have also given a live demonstration to the class.
 
 The product is deployed publicly at:
 https://juvenilejustice-d5aea.firebaseapp.com
+
+(Commit 16545c04a0c306359f7392e57512bae14671f052 is deployed at the above website)
 <br>
 Use your administrator account to log into the dashboard.
 If you do not have an administrator account, contact the clients or the developers, so they can invite you.
