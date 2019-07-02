@@ -1,5 +1,22 @@
 # Juvenile System Project
 
+## To the maintainers:
+This project was developed by 5 UCLA Computer Science Undergraduates, as part of UCLA's CS130 course, where students are paired with clients to solve a real-world problem.
+
+The rest of this README contains a brief overview of the project.
+
+See ./docs for documentation about the project. The documentation includes:
+- SRS.pdf
+    - The SRS (Software requirements specification) for the project 
+- FinalPresentation.pdf
+    - A PDF of the slide deck used for the team's presentation to the class
+- FinalReport.pdf
+    - Final report focused on the software engineering practices that went into the project
+
+Note that the final presentation and final report focus on how the team used good software engineering practices, so much of the content was included to ensure we met the course requirments.
+
+We recommend first reading the SRS to get a good idea of the requirements we worked towards, then reading the final presentation slides about the system architecture. Then, review section 8 of the final report, to understand the future goals for this project. The rest of the content is optional.
+
 ## Overview of this project
 This repository holds the code for the `Juvenile Justice System Educational Platform` project.
 This project was created as part of UCLA's CS130 (Software Engineering) course.
